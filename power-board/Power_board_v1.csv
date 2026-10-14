@@ -1,0 +1,54 @@
+Reference,Qty,Value,DNP,Footprint,Datasheet
+"BAT1,USBIN2",2,TestPoint,,TestPoint:TestPoint_Keystone_5000-5004_Miniature,
+BZ1,1,Buzzer,,Buzzer_Beeper:Buzzer_12x9.5RM7.6,https://www.digikey.ch/fr/products/detail/soberton-inc/WT-1205/479674
+"C1,C2",2,1uF,,Capacitor_SMD:C_0603_1608Metric,Mouser Electronics CC0603KKX7R8BB105 YAGEO | Mouser
+C3,1,47n,,Capacitor_SMD:C_0805_2012Metric,https://www.mouser.ch/en/ProductDetail/YAGEO/CC0805KKX7RABB473?qs=sGAEpiMZZMukHu%252BjC5l7YZUvtaDFesAWumhaD1BIcY8%3D
+"C4,C21,C22",3,22u,,Capacitor_SMD:C_1206_3216Metric,https://www.mouser.ch/en/ProductDetail/YAGEO/CC1206MKX5R8BB226?qs=fW5p%252BQYNLtzbf2xUiAh%252B4A%3D%3D
+"C5,C6",2,10u,,Capacitor_SMD:C_0805_2012Metric,https://www.mouser.ch/en/ProductDetail/YAGEO/CC0805KKX5R8BB106?qs=57cj7OiSijm89pM64t1AGQ%3D%3D
+"C7,C26",2,4.7u,,Capacitor_SMD:C_1206_3216Metric,https://www.mouser.ch/en/ProductDetail/YAGEO/CC1206KFX7R8BB475?qs=mzRxyRlhVdsU53q0HLteTg%3D%3D
+"C8,C9,C12,C13,C17,C18",6,22uF,,Capacitor_SMD:C_1206_3216Metric,https://www.mouser.ch/en/ProductDetail/YAGEO/CC1206MKX5R8BB226?qs=fW5p%252BQYNLtzbf2xUiAh%252B4A%3D%3D
+"C10,C14,C19,C23,C24,C25",6,100nF,,Capacitor_SMD:C_0603_1608Metric,https://www.mouser.ch/en/ProductDetail/YAGEO/CC0603KRX7R8BB104?qs=AgBp2OyFlx%252B4QOgEm%2Fb3YQ%3D%3D
+C11,1,10uF,,Capacitor_SMD:C_0805_2012Metric,https://www.mouser.ch/en/ProductDetail/YAGEO/CC0805KKX5R8BB106?qs=57cj7OiSijm89pM64t1AGQ%3D%3D
+C15,1,220nF,,Capacitor_SMD:C_0603_1608Metric,https://www.mouser.ch/en/ProductDetail/YAGEO/AC0603KRX7R8BB224?qs=tS%2FAHvPQ%2F54SuMTWgsJv0Q%3D%3D
+C16,1,470nF,,Capacitor_SMD:C_0603_1608Metric,https://www.mouser.ch/en/ProductDetail/YAGEO/CC0603KRX7R7BB474?qs=AgBp2OyFlx99qBaOZY%2FHPA%3D%3D
+"C20,L1",2,1u,,"Capacitor_SMD:C_1206_3216Metric,KiCad_L_CHA:INDC3030X200N","https://www.mouser.ch/en/ProductDetail/Wurth-Elektronik/74438336010?qs=iC14BvcgY%2F2UNRD3pEjYYg%3D%3D,https://www.mouser.ch/en/ProductDetail/YAGEO/CC0603KKX7R8BB105?qs=w%2Fv1CP2dgqpaorbbwCjTTw%3D%3D"
+"D1,D2",2,LED_Small,,LED_SMD:LED_0603_1608Metric,https://www.mouser.ch/en/ProductDetail/Kingbright/APTD1608SEC-J3?qs=6pLj%252BqlhfwAhstDKTOglEA%3D%3D
+D3,1,LED,,LED_THT:LED_D5.0mm,https://www.mouser.ch/en/ProductDetail/Lumex/SSL-LX5093XYC?qs=XnHEeJup%252Bh%252BANbqkTiLtQg%3D%3D
+D4,1,D,,Diode_SMD:D_SOD-123,https://www.mouser.ch/en/ProductDetail/Comchip-Technology/1N4148W-HF?qs=vmHwEFxEFR9irXFIofGxAw%3D%3D
+"DL1,TB1",2,D_Zener,,"Package_TO_SOT_SMD:SOT-23,SMBJ9.0A:DIOM5436X261N","https://www.mouser.ch/fr/ProductDetail/Semtech/SMBJ9.0A?qs=jcD%2FCkGBYePtPuZ9ckrFig%3D%3D,https://www.mouser.ch/fr/ProductDetail/Texas-Instruments/ESDS452DBZRQ1?qs=i8QVZAFTkqT39ERFtTbzTw%3D%3D"
+HM1,1,TPS7A8101DRBT,,Kicad TPS 7A8101:SON65P300X300X100-9N-D,https://www.mouser.ch/en/ProductDetail/Texas-Instruments/TPS7A8101DRBT?qs=5kMjoDYFkgg7pYLmmIIQxg%3D%3D
+IC1,1,MCP6541T-I_OT,,SOT95P270X145-5N,https://datasheet.datasheetarchive.com/originals/distributors/Datasheets-304/55359.pdf
+IC2,1,TPS63070RNMR,,KiCad TPS63070:TPS630701RNMR,https://www.mouser.ch/en/ProductDetail/Texas-Instruments/TPS63070RNMR?qs=LuYMPh7GGMS51GHntBDRnQ%3D%3D
+IC3,1,AP2281-1FMG-7,,KiCad_LS:SON50P201X181X60-7N,https://www.mouser.ch/en/ProductDetail/Diodes-Incorporated/AP2281-1FMG-7?qs=sGAEpiMZZMutXGli8Ay4kJSgbBjijlCMrLbAT8oKQoc%3D
+INLDO1,1,VinLDO,,TestPoint:TestPoint_Keystone_5000-5004_Miniature,
+J2,1,XT30F,,Connector_AMASS:AMASS_XT30PW-F_1x02_P2.50mm_Horizontal,https://www.tme.eu/en/details/xt30pw-f/dc-power-connectors/amass/
+J3,1,2053380003,,footprints:CONN_2053380000-SD_03_MOL,https://www.molex.com/en-us/products/part-detail-pdf/2053380003?display=pdf
+J5,1,UJ20-C-H-G-SMT-1-P16-TR,,usbc:SAMESKY_UJ20-C-H-G-SMT-1-P16-TR,https://www.sameskydevices.com/product/resource/pcbfootprint/uj20-c-h-g-smt-1-p16-tr
+LB1,1,1.5uH,,KiCad induct:78438336015,https://www.mouser.ch/en/ProductDetail/Vishay-Dale/IHLP1212AEEZ1R5M1A?qs=AeBljyeJo%252Bhd9mt%252BUA1TIQ%3D%3D
+OUTPB1,1,VoutPB,,TestPoint:TestPoint_Keystone_5000-5004_Miniature,
+Q1,1,BSS84,,Package_TO_SOT_SMD:SOT-23,https://www.mouser.ch/en/ProductDetail/onsemi/BSS84?qs=FOlmdCx%252BAA0e83h5MpSc0g%3D%3D
+"R1,R19,R20",3,10k,,Resistor_SMD:R_0603_1608Metric,https://www.mouser.ch/en/ProductDetail/Panasonic-Industry/ERJ-3EKF1002V?qs=H7k1u0Mp9JSrGPQ5%2F5COuw%3D%3D
+R2,1,5.23k,,Resistor_SMD:R_0603_1608Metric,https://www.mouser.ch/en/ProductDetail/Panasonic-Industry/ERJ-3EKF5231V?qs=LRVwtJ3DVIAOCclJH%2FYgYQ%3D%3D
+"R3,R4,R24",3,2.2k,,Resistor_SMD:R_0603_1608Metric,https://www.mouser.ch/en/ProductDetail/Panasonic-Industry/ERJ-3EKF2201V?qs=iBwFsHVUAOcSom3i15f%252BIQ%3D%3D
+R5,1,10kOhm,,Resistor_SMD:R_0603_1608Metric,https://www.mouser.ch/en/ProductDetail/Panasonic-Industry/ERJ-3EKF1002V?qs=H7k1u0Mp9JSrGPQ5%2F5COuw%3D%3D
+R6,1,665kOhm,,Resistor_SMD:R_0603_1608Metric,https://www.mouser.ch/en/ProductDetail/Panasonic-Industry/ERJ-3EKF6653V?qs=66DK8nO8gJBGxsKuJXtjQA%3D%3D
+"R7,R8",2,100kOhm,,Resistor_SMD:R_0603_1608Metric,https://www.mouser.ch/en/ProductDetail/Panasonic-Industry/ERJ-3EKF1003V?qs=H7k1u0Mp9JSqh2R2gj46DA%3D%3D
+R9,1,60.4k,,Resistor_SMD:R_0603_1608Metric,https://www.mouser.ch/en/ProductDetail/Panasonic-Industry/ERJ-3EKF6042V?qs=iBwFsHVUAOfU9V8Ptq8eUw%3D%3D
+R10,1,9.53k,,Resistor_SMD:R_0603_1608Metric,https://www.mouser.ch/en/ProductDetail/Panasonic-Industry/ERJ-3EKF9531V?qs=66DK8nO8gJBjv9VU0Y4AGg%3D%3D
+R11,1,470,DNP,Resistor_SMD:R_0603_1608Metric,https://www.mouser.ch/en/ProductDetail/Panasonic-Industry/ERJ-3EKF4700V?qs=MVjVSMjNRMpQ3VsSe9R%252BEw%3D%3D
+"R12,R13",2,5.1k,,Resistor_SMD:R_0603_1608Metric,https://www.mouser.ch/en/ProductDetail/Panasonic-Industry/ERJ-3EKF5101V?qs=MVjVSMjNRMqhyossZ5oXsQ%3D%3D
+R14,1,6.2k,,Resistor_SMD:R_0603_1608Metric,https://www.mouser.ch/en/ProductDetail/Panasonic-Industry/ERJ-3EKF6201V?qs=iBwFsHVUAOd2VkgAcHpNRw%3D%3D
+R15,1,220k,,Resistor_SMD:R_0603_1608Metric,https://www.mouser.ch/en/ProductDetail/Panasonic-Industry/ERJ-3EKF2203V?qs=iBwFsHVUAOfwvmKd%2FX8jvQ%3D%3D
+R16,1,383,,Resistor_SMD:R_0603_1608Metric,https://www.mouser.ch/en/ProductDetail/Panasonic-Industry/ERJ-3EKF3830V?qs=MVjVSMjNRMoScrVv2H5fuA%3D%3D
+R17,1,30.1k,,Resistor_SMD:R_0603_1608Metric,https://www.mouser.ch/en/ProductDetail/Panasonic-Industry/ERJ-3EKF3012V?qs=66DK8nO8gJC7Fk9O78uchg%3D%3D
+R18,1,51.1k,,Resistor_SMD:R_0603_1608Metric,https://www.mouser.ch/en/ProductDetail/Panasonic-Industry/ERJ-3EKF5112V?qs=DQ1bOpn7xPBP%252BoWGWvHEdg%3D%3D
+R21,1,26.7k,,Resistor_SMD:R_0603_1608Metric,https://www.mouser.ch/en/ProductDetail/Panasonic-Industry/ERJ-3EKF2672V?qs=iBwFsHVUAOeybfAczMMTJw%3D%3D
+R22,1,330,,Resistor_SMD:R_0603_1608Metric,https://www.mouser.ch/en/ProductDetail/Panasonic-Industry/ERJ-3EKF3300V?qs=MVjVSMjNRMqskx0rzM4%2FYg%3D%3D
+R23,1,470k,,Resistor_SMD:R_0603_1608Metric,
+RV1,1,0-500,,Potentiometer_THT:Potentiometer_Bourns_3296W_Vertical,https://www.mouser.ch/fr/ProductDetail/Bourns/3296W-1-501LF?qs=jv1NtkgVBglZfwkzTzmOUg%3D%3D
+S1,1,MFS201N-9-Z,,MFS201N9Z,https://www.nidec-copal-electronics.com/e/catalog/switch/mfs.pdf
+S2,1,5MS1S102AM6QES,,5MS1S102AM6QES,https://www.mouser.ch/en/ProductDetail/Dailywell/5MS1S102AM6QES?qs=B6kkDfuK7%2FBHVJoQEkyphg%3D%3D
+TL1,1,,,Diode_SMD:D_SOD-128,https://assets.nexperia.com/documents/data-sheet/PTVSXP1UP-Q_SER.pdf
+U2,1,USBLC6-2SC6,,Package_TO_SOT_SMD:SOT-23-6,https://www.st.com/resource/en/datasheet/usblc6-2.pdf
+U3,1,BQ25886RGE,,Package_DFN_QFN:Texas_RGE0024H_VQFN-24-1EP_4x4mm_P0.5mm_EP2.7x2.7mm,http://www.ti.com/lit/ds/symlink/bq25886.pdf
+U4,1,MCP1703Ax-500xxMB,,Package_TO_SOT_SMD:SOT-89-3,http://ww1.microchip.com/downloads/en/DeviceDoc/20005122B.pdf
