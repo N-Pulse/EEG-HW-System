@@ -181,10 +181,10 @@ Decision · Rationale · Requirements addressed · Consequences. -->
 
 #### 3.2.2 Charger and port
 
-- **Decision:** TI BQ25886 charger, and USB-C port
-- **Rationale:** The BQ25886 is a standalone 2 cell battery charger. It's characterisics are compatible with our battery's requirements. It is customizable as we can choose the charging current, maximum voltage, maximum current, and maximum charging temperature. This charger does thermal regulation while charging through an NTC thermistor and it can give indications on the charging state.This IC will also switch to low consumption mode when not charging which saves us on power. The port is a USB-C port, which was chosen because it is smaller than a USB-A port and it is the more universal norm. 
-- **Requirements addressed:** `REQ-xxx, REQ-yyy`
-- **Consequences / limitations:** As this charger does not use an MCU unit, there is little feedback we can get on what's happening during the charging. Also, its thermal regulation circuit is only operational during charging which means we must make a separate thermal regulation circuit for when the battery is discharging.
+- **Decision:** TI BQ25886 charger and USB-C port
+- **Rationale:** The BQ25886 is a standalone 2-cell Li-ion battery charger. Its characterisics are compatible with our battery's requirements. It is configurable as we can choose the charging current, charging voltage, and input current limit. This charger monitors battery temperature during charging through an NTC thermistor and provides indications of the charging state. This IC will also enters a low-power mode when not charging which reduces power consumption. The USB-C port was chosen because it is compact and widely used compared to the previous USB-A port. 
+- **Requirements addressed:** EEG-005 (battery safety).
+- **Consequences / limitations:** As this charger operates without an MCU, the charging-status information available to the system is limited. Also, its NTC-based battery temperature monitoring is used during charging, which means we need a separate thermal protection circuit to monitor the battery temperature during discharge.
 
 #### 3.2.3 Voltage conversion
 
