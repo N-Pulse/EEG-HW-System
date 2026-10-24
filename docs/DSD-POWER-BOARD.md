@@ -1,4 +1,4 @@
-# Design Solution Definition: `<Subsystem / Module Name>`
+# Design Solution Definition: EEG/Power Board
 
 > **Project:** `<Project name>`
 > **Document ID:** `DSD-<NNN>-<SHORT-NAME>`
@@ -95,9 +95,13 @@ proposed (issue, RFC, pull request)? -->
 >
 >| Term | Definition |
 >|---|---|
->| DSD | Design Solution Definition |
->| ICD | Interface Control Document | 
->
+>| DSD | Design Solution Definition | 
+>| EEG | Electroencephalography | 
+>| IC | Integrated Circuit |
+>| NTC | Negative Temperature Coefficient |
+>| BMS | Battery Management System |
+>| LDO | Low Dropout Regulator |
+>| TVS | Transient Voltage Suppressor | 
 
 ## 2. Requirements and traceability
 
@@ -129,6 +133,7 @@ the requirements this design directly addresses. -->
 
 `<Shortly, how does the retained concept address the problem ? State the core idea in one paragraph.>`
 
+The EEG power board supplies clean and stable power to an EEG headset through a 2S Li-ion rechargeable battery pack. It also protects the user against overheating from the battery. The battery can be recharged via a USB-C port. The board supplies stable power by passing the battery voltage through two different voltage converters;  a buck and an LDO. The buck accomodates the fluctuating voltage supply from the battery and the LDO removes the ripple noise from the buck, ensuring a constant and clean 5.7V ouput from the board. The overheating protection is guaranteed by a hysteresis comparator that switches off the load when the battery reaches a certain temperature, and turns it back on when it is cool enough.
 
 <!-- Mermaid renders natively on GitHub. Alternatively link an image from
 `docs/figures/`. Include interfaces: data, mechanical, electrical,
@@ -136,14 +141,16 @@ biological/sample flow, and user interaction. -->
 
 ```mermaid
 flowchart LR
-    A[Input: sample / signal] --> B[Module 1]
-    B --> C[Module 2]
-    C --> D[Output: result / product]
-    E[Control software] --> B
-    E --> C
+    A[Battery Input] <--> B[Charging IC]
+    C[USB-C port] --> B
+    A --> D[Temperature Management]
+    B --> E[Buck (7.4->6.1V)]
+    E --> F[LDO (6.1-5.7V)]
+    F --> G[Load + Switch]
+    D --> G
 ```
 
-*Figure 3.1: High-level architecture of `<subsystem>`.*
+*Figure 3.1: High-level architecture of EEG Power Board.*
 
 
 ### 3.2 Main design choices
@@ -158,18 +165,52 @@ Decision · Rationale · Requirements addressed · Consequences. -->
 - **Requirements addressed:** `REQ-xxx, REQ-yyy`
 - **Consequences / limitations:** `<what this commits us to or rules out>`
 
+#### 3.2.1 Battery 
 
-#### 3.2.2 Operating modes
+- **Decision:** Keeppower 2S1P 18650 3400mAh 7.2/7.4V Li-Ion (ref. 12051) with BMS protection, 3 cables (+,-, Temp)
+- **Rationale:** This battery pack supplies a reasonable voltage while also having a capacity that is sufficient. Its integrated BMS and NTC thermistor allow the final design to be more compact while having less cables running around on the system. It is also This pack has numerous safety certifications, ensuring that it is safe to be worn. It is also pretty small and lightweight enough to not provide discomfort to the user.
+- **Requirements addressed:** `REQ-xxx, REQ-yyy`
+- **Consequences / limitations:** As this battery's BMS does not handle thermal protection, we must make a circuit dedicated to it. This battery also has no connectors, so we must choose an appropriate one.
+
+#### 3.2.2 Charger and port
+
+- **Decision:** TI BQ25886 charger, and USB-C port
+- **Rationale:** The BQ25886 is a standalone 2 cell battery charger. It's characterisics are compatible with our battery's requirements. It is customizable as we can choose the charging current, maximum voltage, maximum current, and maximum charging temperature. This charger does thermal regulation while charging through an NTC thermistor and it can give indications on the charging state.This IC will also switch to low consumption mode when not charging which saves us on power. The port is a USB-C port, which was chosen because it is smaller than a USB-A port and it is the more universal norm. 
+- **Requirements addressed:** `REQ-xxx, REQ-yyy`
+- **Consequences / limitations:** As this charger does not use an MCU unit, there is little feedback we can get on what's happening during the charging. Also, its thermal regulation circuit is only operational during charging which means we must make a separate thermal regulation circuit for when the battery is discharging.
+
+#### 3.2.3 Voltage conversion
+
+- **Decision:** two stage voltage drop with a buck followed by an LDO : 7.4->6.1->5.7V. A 500 Ohm trimmer is added at the resistor divider on the LDO's ouput, in order to modify the ouput voltage if necessary. TI TPS63070 buck, TI TPS7A8101 LDO, with 500 Ohm trimmer
+- **Rationale:** This buck was chosen to accomodate the large fluctuations of the battery voltage (5V up to 8.4V), it also has an efficiency of up to 95% which minimises power loss. This LDO is placed downstream to filter the ripple noise of the buck which is a switching regulator. This prevents disturbances from being carried on to the decoding board. The middle value of 6.1V was chosen to abide by the very low droupout of the LDO which is 170mV. The potentiometer allows to adjust the output from 5.49V to 5.87V. A power switch connected to the buck's enable pin allows to turn off the power supply line entirely.
+- **Requirements addressed:** `REQ-xxx, REQ-yyy`
+- **Consequences / limitations:** This architecture occupies a lot of space by having two regulators a switch and the trimmer. 
+
+#### 3.2.4 Thermal protection
+
+- **Decision:** Hysteresis comparator that that compares the value of an NTC thermistor, which is placed in between the 2 battery cells, and a given resistor. When the heat recorded by the NTC thermistor is over 58°C, the comparator's output will be on low which will disable the load switch placed at the LDO's output, cutting off the supply to the decoding board. Whe this happens, a buzzer will sound for a couple of seconds, signaling to the user that the system has overheated, and a yellow LED will be on while the system is disabled. When the temperature has gone back down to 50°C, the comparator's ouput will be back to high and the supply to the decoding board will be back on. MCP6541 comparator, MCP1703AT LDO, AP2281 load switch, MFS201N-9-Z switch, LED and buzzer
+- **Rationale:** 
+- **Requirements addressed:** `REQ-xxx, REQ-yyy`
+- **Consequences / limitations:** `<what this commits us to or rules out>`
+
+#### 3.2.5 Connectorss
+
+- **Decision:** XT30F for the output to the EEG decoding board, 2.00mm Pitch Pico-Lock MOLEX for the battery input.
+- **Rationale:** `<why, with evidence or references>`
+- **Requirements addressed:** `REQ-xxx, REQ-yyy`
+- **Consequences / limitations:** `<what this commits us to or rules out>`
+
+#### 3.2.6 Operating modes
 
 <!-- For instruments: operating modes. For protocols and pipelines: workflow
 stages. Include entry and exit conditions and what is active in each. -->
 
 | Mode / Stage | Purpose | Entry condition | Exit condition | Active components |
 |---|---|---|---|---|
-| Idle | | | | |
-| Nominal operation | | | | |
-| Calibration | | | | |
-| Safe / fault state | | | | |
+| OFF | No power to the system | Power switch open | Power switch closed | Battery's BMS |
+| Nominal operation | Supplying power to the EEG system | Power switch closed, battery connected, NTC switch on operating mode, temperature below the threshold (connection to the decoding board) | overheating, battery disconnected or discharged, power switch open | Battery, buck, LDO, comparator|
+| Charging | Recharging the battery from the USB port |supply on the USB port, NTC switch on charging mode | USB port unplugged USB port, NTC switch on operating mode| USB-C port, charging IC, battery |
+| Safe / fault state (overheated) | Letting the battery cool down by stopping the supply to the decoding board| | | |
 
 ### 3.3 Functionally linked systems
 
