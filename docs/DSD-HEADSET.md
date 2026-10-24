@@ -1,20 +1,11 @@
-# Design Solution Definition: `<Subsystem / Module Name>`
+# Design Solution Definition: EEG Headset
 
-> **Project:** `<Project name>`
-> **Document ID:** `DSD-<NNN>-<SHORT-NAME>`
-> **Version:** `0.1.0` · **Status:** `Draft | In Review | Approved | Superseded`
-> **Project phase:** `<e.g. Concept / Proof of Concept / Prototype / Release>`
-> **Last modified:** `YYYY-MM-DD`
-> **Repository path:** `docs/design/<name>/README.md`
-
-
-HOW TO USE THIS TEMPLATE
-- Replace every `<placeholder>`. Delete guidance comments before review.
-- One DSD per subsystem or module
-- The DSD must stand alone: a reviewer should be able to judge the design
-  from this document, the linked requirements, and the linked evidence.
-- Normative language: "shall" = requirement, "should" = recommendation,
-  "may" = optional.
+> **Project:** N-Pulse EEG Hardware System
+> **Document ID:**
+> **Version:** · **Status:** Draft
+> **Project phase:** Prototype
+> **Last modified:** 2026-10-24
+> **Repository path:** `docs/DSD-HEADSET.md`
 
 ---
 
@@ -30,14 +21,13 @@ HOW TO USE THIS TEMPLATE
 | Concurrence (Quality management reviewer) | | | | |
 | Approval (Project Manager) | | | | |
 
-> Note : Link approval to any relevant PR (Pull Request)
-> Affiliation/Handle : Role/ Username on Github
+> Note: Link approval to any relevant pull request (PR).
 
 ### Modification log
 
 | Version | Date | Author(s) | Main changes | PR / Commit |
 |---|---|---|---|---|
-| 1.0.0 | YYYY-MM-DD | | First version | |
+| | 2026-10-24 | Yassin Elaraby | Initial headset DSD draft | |
 
 ---
 
@@ -48,7 +38,7 @@ HOW TO USE THIS TEMPLATE
 3. [Concept justification](#3-concept-justification)
 4. [Traded-off concepts](#4-traded-off-concepts)
 5. [Quality management and compliance](#5-quality-management-and-compliance) /!\ THIS SECTION IS NOT FINALISED /!\
-6. [Licensing](#6-open-source-considerations) /!\ THIS SECTION IS NOT FINALISED /!\
+6. [Licensing](#6-licensing) /!\ THIS SECTION IS NOT FINALISED /!\
 7. [Open issues and future work](#7-open-issues-and-future-work)
 8. [References](#8-references)
 9. [Appendices](#9-appendices)
@@ -59,215 +49,288 @@ HOW TO USE THIS TEMPLATE
 
 ### 1.1 Purpose and scope
 
-<!-- Why does this document exist, at which review/milestone is it produced,
-and what decision does it support? State what is IN and OUT of scope. 
+This Design Solution Definition (DSD) documents the EEG headset at the prototype stage. The design is still in progress and has not yet been validated. The document explains the retained concept and records the current design decisions for project managers, reviewers, and future contributors.
 
-DO NOT CHANGE ANYTHING IN THIS SECTION EXCEPT THE HIGHLIGHTED SECTIONS -->
-
-This Design Solution Definition (DSD) is at a `<Concept / Proof of concept / Prototype / Public Release >` stage
-validated on `<date>`. It justifies the concept selected for `<subsystem>`.
+The headset is intended to provide a comfortable, stable, and adjustable structure that holds dry EEG electrodes against the scalp for basic research and prototype testing. It is not intended for diagnostic or clinical use.
 
 It covers:
 
-- the problem the subsystem must solve
-- the retained concept: architecture, components, and design choices
-- the concepts that were considered and not retained
-- risks, quality, and compliance implications.
+- the headset frame and adjustment concept
+- the elastic electrode bands and their frame interfaces
+- the electrode layout and holder concept
+- the rear dial, chin strap, and removable padding
+- the mechanical integration of the power-board and decoding-board casings
+- the separate battery armband
+- the previous concepts considered and the reasons for retaining the current hybrid concept.
 
-**Out of scope:** `<list explicitly if you have another document that covers another part of the design. If nothing relevent put Not Applicable>`
+**Out of scope:** Electrical design of the EEG, power, and decoding boards; EEG signal-processing software; and detailed electrode-holder design verification. These items are documented separately or remain future work.
 
 ### 1.2 Responsibility and change authority
 
-<!-- Who owns this document? Who may approve changes? How are changes
-proposed (issue, RFC, pull request)? -->
-
-- **Document owner:** `<name / team>` <!-- Who is responsible to keep this document up to date ? --> 
-- **Change authority:** `<role / committee>` <!-- What is the role/responsibility of the person -->
-
+- **Document owner:** Yassin Elaraby, Headset Designer / @Yassin-elaraby
+- **Change authority:** Changes are proposed and reviewed through repository pull requests. The approving person is not assigned in this draft.
 
 ### 1.3 Abbreviated terms and definitions
 
 | Term | Definition |
 |---|---|
-| `<TERM>` | `<Definition>` |
-
-> <span style='color: red;'>EXAMPLE</span>
->
->| Term | Definition |
->|---|---|
->| DSD | Design Solution Definition |
->| ICD | Interface Control Document | 
->
+| DSD | Design Solution Definition |
+| EEG | Electroencephalography |
+| PETG | Polyethylene terephthalate glycol-modified |
+| PA12 | Polyamide 12 (Nylon 12) |
+| PCB | Printed circuit board |
+| STEP | Standard for the Exchange of Product model data |
+| TBC | To be confirmed |
 
 ## 2. Requirements and traceability
 
-<!-- Do not duplicate the full requirements document. Link to it and list only
-the requirements this design directly addresses. -->
+The following requirements describe the current design intent. Numerical acceptance limits that have not yet been agreed are marked TBC rather than assumed.
 
-| Requirement ID | Verification method | Status |
-|---|---|---|
-|   |   |   |
+| Requirement ID | Requirement | Verification method | Status |
+|---|---|---|---|
+| HS-REQ-001 | The headset shall provide an adjustable fit for different head sizes. The validated adjustment range is TBC. | Demonstration and measurement after rear-dial integration | In progress |
+| HS-REQ-002 | The headset shall hold the selected electrodes at the defined scalp regions. Positional repeatability tolerance is TBC. | Inspection and fit test | In progress |
+| HS-REQ-003 | The headset shall support 16 electrodes: 14 measurement electrodes, one reference, and one ground. | Inspection | Defined; assembly not complete |
+| HS-REQ-004 | The headset should support comfort improvements through adjustable fit, removable padding, elastic bands, and a chin strap. Comfort acceptance criteria are TBC. | User fit test | In progress |
+| HS-REQ-005 | The headset shall provide mechanical integration for separate power-board and decoding-board casings on the rear of the frame. | Inspection of completed assembly | In progress |
+| HS-REQ-006 | The battery shall be carried separately from the headset in an armband. | Inspection | Concept selected; armband TBC |
 
-> <span style='color: red;'>EXAMPLE</span>
-> | Requirement ID | Verification method | Status |
-> |---|---|---|
->| REQ-001 | A | met |
-
-> **Verification methods:** (D)emonstration, (T)est, (M)easurement, (I)nspection, (A)nalysis
- 
+> **Verification methods:** (D)emonstration, (T)est, (M)easurement, (I)nspection, (A)nalysis.
 
 ---
 
 ## 3. Concept justification
 
-`<Explain HOW the design addresses the technical problem it's trying to solve. Every major element should trace back to a need or requirement>`
-
-<span style="color: red;">The following chapters and sub-chapters are an example. Tailor them to be the most relevant to your own system.</span>
-
-
 ### 3.1 Solution overview
 
-`<Shortly, how does the retained concept address the problem ? State the core idea in one paragraph.>`
-
-
-<!-- Mermaid renders natively on GitHub. Alternatively link an image from
-`docs/figures/`. Include interfaces: data, mechanical, electrical,
-biological/sample flow, and user interaction. -->
+The retained concept is a hybrid of the previous flexible and rigid headset designs. A rigid 3D-printed frame provides a repeatable base for the assembly. Four removable transverse elastic bands accommodate differences in scalp shape and carry the electrode holders. A rear adjustment dial changes the fit, while a chin strap and removable internal padding are planned to improve stability and comfort. Two separate casings at the back of the headset will hold the power board and decoding board. The battery will be carried separately in an armband.
 
 ```mermaid
-flowchart LR
-    A[Input: sample / signal] --> B[Module 1]
-    B --> C[Module 2]
-    C --> D[Output: result / product]
-    E[Control software] --> B
-    E --> C
+flowchart TD
+    H[User's head] --> P[Removable padding]
+    P --> F[Rigid headset frame]
+    D[Rear adjustment dial] --> F
+    C[Chin strap] --> F
+    F --> B[Four transverse elastic bands]
+    B --> EH[Spring-loaded electrode holders]
+    EH --> E[16 SoftPulse Brush Long electrodes]
+    E --> S[Scalp contact]
+    F --> PB[Power-board casing]
+    F --> DB[Decoding-board casing]
+    BA[Battery in separate armband] --> PB
 ```
 
-*Figure 3.1: High-level architecture of `<subsystem>`.*
-
+*Figure 3.1: Mechanical architecture and planned subsystem integration.*
 
 ### 3.2 Main design choices
 
-<!-- One subsection per significant choice. Use this pattern:
-Decision · Rationale · Requirements addressed · Consequences. -->
+#### 3.2.1 Rigid frame with rear adjustment
 
-#### 3.2.1 `<Design choice name>`
+- **Decision:** Use a rigid 3D-printed frame, opened at the rear into a horseshoe form and bridged by a rear adjustment dial.
+- **Rationale:** The rigid frame provides a stable reference for the electrode bands and electronics, while the dial is intended to provide size adjustment.
+- **Requirements addressed:** HS-REQ-001, HS-REQ-002, HS-REQ-005
+- **Consequences / limitations:** The selected dial has 90 mm of mechanism travel, or ±45 mm from its middle position. This is not a validated head-circumference range. Detailed attachment geometry, loads, and frame deformation remain TBC until the dial arrives. PETG cracking during adjustment is a known concern.
 
-- **Decision:** `<what was chosen>`
-- **Rationale:** `<why, with evidence or references>`
-- **Requirements addressed:** `REQ-xxx, REQ-yyy`
-- **Consequences / limitations:** `<what this commits us to or rules out>`
+#### 3.2.2 Transverse elastic electrode bands
 
+- **Decision:** Use three transverse bands for measurement electrodes and a fourth transverse band for the ground electrode. The frame will have four physical band slots on each side, eight slots in total.
+- **Rationale:** Elastic bands can follow differences in scalp shape while fixed frame slots limit movement of the rows and improve repeatability compared with the previous flexible design.
+- **Requirements addressed:** HS-REQ-002, HS-REQ-003, HS-REQ-004
+- **Consequences / limitations:** Band material, width, thickness, stretch, and final slot dimensions are not yet selected. Slot locations and clearances have not been validated.
 
-#### 3.2.2 Operating modes
+#### 3.2.3 Electrode layout and holders
 
-<!-- For instruments: operating modes. For protocols and pipelines: workflow
-stages. Include entry and exit conditions and what is active in each. -->
+- **Decision:** Use 16 Datwyler SoftPulse Brush Long dry electrodes in the confirmed 10–10 positions. Each complete holder has a target external footprint of 28 × 28 mm, including its attachment features. The electrode and its buffer PCB are soldered together and will move together in a spring-loaded carrier.
+- **Rationale:** The selected layout covers the required regions while the spring-loaded carrier is intended to maintain scalp contact across local head-shape and hair differences.
+- **Requirements addressed:** HS-REQ-002, HS-REQ-003
+- **Consequences / limitations:** Spring type, stiffness, preload, travel, total holder height, buffer connection, and final collision clearances are TBC. The 28 × 28 mm footprint has not yet been validated in the complete assembly.
 
-| Mode / Stage | Purpose | Entry condition | Exit condition | Active components |
-|---|---|---|---|---|
-| Idle | | | | |
-| Nominal operation | | | | |
-| Calibration | | | | |
-| Safe / fault state | | | | |
+| Function | Electrode positions | Count |
+|---|---|---:|
+| Front measurement row | FC3, FC1, FC2, FC4 | 4 |
+| Central measurement row | C5, C3, C1, Cz, C2, C4, C6 | 7 |
+| Rear measurement row | CP1, CPz, CP2 | 3 |
+| Reference | FCz | 1 |
+| Ground | AFz | 1 |
+| **Total** | **14 measurement + reference + ground** | **16** |
 
-### 3.3 Functionally linked systems
+#### 3.2.4 Stability and comfort features
 
-State here which other (sub-)systems are necessary or planned to be
-used with the sytem you're currently designing
+- **Decision:** Add a chin strap and removable internal padding, with the exact products and attachment geometry to be confirmed.
+- **Rationale:** The chin strap is intended to limit headset movement and help maintain electrode contact. Removable padding allows local fit and comfort adjustments.
+- **Requirements addressed:** HS-REQ-001, HS-REQ-002, HS-REQ-004
+- **Consequences / limitations:** Chin-strap slit geometry will be designed after the purchased part can be measured. Padding type, thickness, firmness, and attachment positions are TBC. Comfort has not yet been tested.
 
+#### 3.2.5 Electronics and battery integration
 
-### 3.4 Performance budgets and design margins
+- **Decision:** Mount two separate casings on the back of the headset: one for the power board and one for the decoding board. Carry the battery separately in a phone-running-style armband.
+- **Rationale:** Separate casings keep the boards modular. Moving the battery off the headset reduces the mass carried by the head compared with the previous forehead-mounted battery concept.
+- **Requirements addressed:** HS-REQ-004, HS-REQ-005, HS-REQ-006
+- **Consequences / limitations:** Casing geometry, mounts, cable routing, strain relief, and the specific battery armband remain in progress.
 
-Mass/Power/Compute/Delay budgets. Either include them here directly or link the relevant excel sheet
+#### 3.2.6 Material and manufacturing
+
+- **Decision:** Use 3D-printed PETG for the current headset-frame prototypes.
+- **Rationale:** PETG supports low-cost design iterations during prototyping.
+- **Requirements addressed:** HS-REQ-001, HS-REQ-005
+- **Consequences / limitations:** Final material selection is not complete. SLS PA12 may be investigated for a later prototype, but it is not the selected production material. Frame thinning and local reinforcement also remain future investigations.
+
+### 3.3 Current dimensions
+
+#### 3.3.1 Head measurements used for initial sizing
+
+| Measurement | Current value | Status |
+|---|---:|---|
+| Front-to-back over the scalp | 370 mm | User measurement; landmark definition not recorded |
+| Ear-to-ear over the scalp | 375 mm | User measurement; landmark definition not recorded |
+| Head circumference | Approximately 575–580 mm | Rough current reference; final fit range not validated |
+| Rear-dial mechanism travel | 90 mm total (±45 mm) | Mechanism movement only; integration TBC |
+
+#### 3.3.2 Current frame STEP model
+
+The values below were measured from the current [`frame design.step`](../headset/cad/frame%20design.step) export. They describe the unmodified model and do not prove fit after adding padding, the rear opening, or the dial.
+
+| Property | Value |
+|---|---:|
+| Overall front-to-back extent | 237.73 mm |
+| Overall lateral width | 182.60 mm |
+| Maximum vertical extent | 50.47 mm |
+| Inner perimeter at the flat top | 590.83 mm |
+| Outer perimeter at the flat top | 652.26 mm |
+| Solid material volume | 146.87 cm³ |
+
+#### 3.3.3 Known component envelopes
+
+| Component | Current dimensions | Notes |
+|---|---:|---|
+| Complete electrode holder | 28 × 28 mm | Target external footprint; height TBC |
+| Datwyler SoftPulse Brush Long electrode | 13 mm diameter | Selected electrode |
+| Buffer PCB | 22 mm diameter | Moves with electrode |
+| Power board | 65 × 60 mm | Complete casing dimensions TBC |
+| Decoding board | 45 × 85 mm | Complete casing dimensions TBC |
+| Battery | 69 × 37 × 19 mm | To be carried in a separate armband |
+
+### 3.4 Functionally linked systems
+
+| Linked system | Headset interface | Status |
+|---|---|---|
+| EEG electrodes and buffer PCBs | Mechanical retention, spring travel, and wiring | In progress |
+| EEG decoding board | Rear casing, wiring, and electrode connections | Casing and assembly in progress |
+| Power board | Rear casing, wiring, and battery connection | Casing and assembly in progress |
+| Battery and armband | Cable connection from the arm to the headset system | Armband selection and routing TBC |
+| User | Frame, padding, dial, chin strap, and scalp-contact electrodes | Fit and comfort validation not started |
+
+### 3.5 Current prototype status
+
+Completed or agreed work:
+
+- compared the previous flexible and rigid concepts
+- retained the hybrid rigid-frame and elastic-band concept
+- created the current Fusion 360 frame model and exported it as STEP
+- selected the 16 electrode positions
+- selected the Datwyler SoftPulse Brush Long electrode
+- set the complete electrode-holder target footprint to 28 × 28 mm
+- agreed on four transverse bands and eight frame slots
+- selected rear-dial and chin-strap products for integration studies
+- decided to use two rear electronics casings and a separate battery armband.
+
+The complete headset assembly has not yet been built or validated.
 
 ---
 
 ## 4. Traded-off concepts
 
-<!-- Show your work. This section protects the project from re-litigating
-decisions and records why alternatives were rejected. -->
-
-`<This is the most important part of this document. Please fill it in with great attention. >`
-
-`<The goal of this section is to go over every other solution you found relevant but that you chose not to pursue.>`
-
 ### 4.1 Trade-off method
 
-The trade-off method used was based on the following criteria : 
-- `<criteria nmbr 1>`
-- `<criteria nmbr 2>`
-- ...
+The comparison is qualitative at this stage. No numerical scores or weights have been assigned. The concepts were compared using the following considerations:
 
+- adaptability to different head sizes and shapes
+- electrode-position repeatability
+- stability on the head
+- expected comfort and pressure distribution
+- compatibility with the selected electrode arrangement
+- integration of electronics and adjustment components
+- ease of prototyping and future modification.
 
-`<Describe criteria, weights, and scoring scale. This is a standardized way to explicit your priorities in the design.>`
+### 4.2 Flexible cap
 
-<span style='color: red;'> The table given below is an example. Adapt it with the above mentionned criterias</span>
+![Previous flexible-cap prototype, view 1](../headset/EEG%20Headset/671fdeef-2f9c-4da3-81a9-b35787eb49b4.png)
 
-`<example for an ADC chip for a proof of concept board>`
+![Previous flexible-cap prototype, view 2](../headset/EEG%20Headset/IMG_7445.jpg)
 
+**Pros**
 
-| Criterion | Weight (1 - 5) | Rationale for weight |
+- Adjustable head frame
+- Flexible band for electrode holders
+- Simple design
+- Adjustable positions for electrode holders and rows
+
+**Cons**
+
+- Not very stable
+- Difficult to position consistently on the head
+- Electrode rails can move
+
+**Decision:** Not retained as the complete headset architecture. The useful idea of flexible electrode-support bands is carried into the new hybrid design.
+
+### 4.3 Rigid cap
+
+![Previous rigid-cap prototype, view 1](../headset/EEG%20Headset/IMG_7442.jpg)
+
+![Previous rigid-cap prototype, view 2](../headset/EEG%20Headset/IMG_7443.jpg)
+
+**Pros**
+
+- Known electrode positions
+- Spring-loaded electrode mounting system
+- Rear dial for size adjustment
+- Adapts to different head shapes through rear-dial adjustment
+
+**Cons**
+
+- Can create pressure points
+- Forehead-mounted battery makes the headset uncomfortable
+- Wires run across the complete structure
+
+**Decision:** Not retained unchanged. The rigid positional reference, rear adjustment, and spring-loaded holders are carried into the new hybrid design, while the battery is moved off the head.
+
+### 4.4 Wearable Sensing DSI-24 concept
+
+The DSI-24 uses a compact umbrella-like structure that can adapt to different head shapes. It was considered as design inspiration but was not retained because its structure does not match the required electrode arrangement.
+
+- [Wearable Sensing DSI-24](https://wearablesensing.com/dsi-24/)
+- [Project notes on the DSI-24](https://app.notion.com/p/EEG-headset-information-1b2e4f65ffef8061a763f2f43d6580ea?pvs=21)
+
+### 4.5 Retained hybrid concept
+
+The retained design combines the most useful features of the previous flexible and rigid concepts.
+
+**Retained features**
+
+- a rigid frame for positional reference and component mounting
+- transverse elastic bands to adapt locally to head shape
+- fixed band slots to reduce row movement
+- spring-loaded electrode holders
+- rear-dial adjustment
+- chin strap and removable padding
+- separate rear board casings
+- battery carried away from the head.
+
+**Current limitations**
+
+- complete assembly is not yet available
+- fit range, electrode repeatability, comfort, and stability are not validated
+- rear-dial, strap, padding, casing, band-slot, and spring details remain in progress
+- total mass is TBC.
+
+### 4.6 Trade-off summary
+
+| Option | Retained | Main conclusion |
 |---|---|---|
-| Meets performance requirements | 5 | This ADC was chosen to be part of a first proof of concept. As such, performance is the priority. |
-| Safety and biosafety | 3 | ADC is not in direct contact with the patient. While a medical approved chip is favourable, it is not mandatory |
-| Cost | 3 | This is a proof of concept. The ADC is ordered in small batch and as such prices are higher. Additionally, budget is a constraint for this board  |
-| Reproducibility and accessibility | 4 | Proof of concept. By definition needs to work reliabily and predictably |
-| Supply chain robustness  | 2 | This ADC has high performance requirements that cannot be fulfilled with common chips. |
-| Maintainability and community support | 1 | This is not expected to be replaced, changed or maintained. |
-
-Score scale : 
-> [1] : Does not meet any requirements
-> [2] : Meets some requirements 
-> [3] : Meets all minimum requirements 'Shall' requirements
-> [4] : Meets all minimum requirements and 'should'
-> [5] : Meets all requirements, 'Shall, should & may'
-
-### 4.2 Traded-off design choices
-
-#### 4.2.1 `<Alternative design choice A>`
-
-- **Description:**
-- **Pros**:
-- **Cons**:
-
-#### 4.2.2 `<Alternative design choice A>` score
-
- 
-
-| Criterion | Weight (1-5) | score (1-5) |
-|---|---|---|
-| Meets performance requirements | 5 | 3 |
-| Safety and biosafety | 3 | 5 |
-| Cost | 3 | 1 |
-| Reproducibility and accessibility | 4 | 4 |
-| Supply chain robustness* | 2 | 2 |
-| Maintainability and community support | 1 | 1 |
-| ---|---|---|
-|Total Score| 54 | max score : 90 | 
-
-#### 4.2 `<Retained design choice>` score
-
-- **Pros**:
-- **Cons**:
-
-| Criterion | Weight (1-5) | score (1-5) |
-|---|---|---|
-| Meets performance requirements | 5 | 4 |
-| Safety and biosafety | 3 | 3 |
-| Cost | 3 | 3 |
-| Reproducibility and accessibility | 4 | 4 |
-| Supply chain robustness* | 2 | 3 |
-| Maintainability and community support | 1 | 2 |
-| ---|---|---|
-|Total Score| 62 | max score : 90 | 
-
-### 4.3 Trade-off summary
-
-| Option | Score | Retained | Key reason |
-|---|---|---|---|
-| Retained concept | 62 | Yes | Better performance, lower price |
-| Alternative A | 54 | No | Too expensive, lower performance|
+| Flexible cap | No | Adaptable and simple, but insufficiently stable and repeatable |
+| Rigid cap | No | Stable positional reference, but pressure points and forehead battery reduce comfort |
+| DSI-24-inspired structure | No | Adaptable and compact, but incompatible with the required electrode arrangement |
+| Current hybrid concept | Yes | Best current trade-off between positional reference, local adaptability, modularity, and planned comfort improvements |
 
 ## 5. Quality management and compliance
 
@@ -343,21 +406,64 @@ explain which parts apply by choice (good practice) versus by obligation.
 
 | ID | Issue / TBD / TBC | Owner | Due | Impact if unresolved |
 |---|---|---|---|---|
-| OI-01 | | | | |
+| OI-01 | Receive and measure the rear dial, then design and validate its frame attachments and rear opening. | Yassin Elaraby | TBC | Fit range and frame loads cannot be validated |
+| OI-02 | Confirm electrode-buffer connection details and select the holder spring, preload, travel, and total height. | Yassin Elaraby | TBC | Electrode contact and holder assembly remain incomplete |
+| OI-03 | Select the elastic bands and finalize the eight slot dimensions and locations. | Yassin Elaraby | TBC | Electrode rows cannot be assembled repeatably |
+| OI-04 | Complete and integrate the power-board and decoding-board casings on the rear frame. | Yassin Elaraby | TBC | Full electronics assembly cannot be mounted |
+| OI-05 | Receive and measure the chin strap, then add suitable attachment slits to the CAD. | Yassin Elaraby | TBC | Stability feature cannot be integrated |
+| OI-06 | Select removable padding and define its attachment locations and thicknesses. | Yassin Elaraby | TBC | Comfort and fit cannot be evaluated completely |
+| OI-07 | Select the battery armband and define safe cable routing and strain relief. | Yassin Elaraby | TBC | Off-head battery integration remains incomplete |
+| OI-08 | Complete the assembly and verify fit, comfort, stability, electrode positional repeatability, and total mass. | Yassin Elaraby | TBC | Prototype performance remains unvalidated |
+| OI-09 | Investigate frame thickness and PETG durability around the dial, slots, and casing mounts; consider PA12 only after geometry stabilizes. | Yassin Elaraby | TBC | Frame durability and final material remain uncertain |
 
 ---
 
 ## 8. References
 
-1. `<Applicable documents (binding): requirements spec, standards, regulations>`
-2. `<Reference documents (informative): papers, datasheets, prior DSDs>`
+1. [EEG headset design documentation and previous-design comparison](../headset/README.md)
+2. [Current headset frame STEP model](../headset/cad/frame%20design.step)
+3. [Datwyler SoftPulse products — SoftPulse Brush Long](https://datwyler.com/company/innovation/softpulse/products/)
+4. [Selected rear adjustment dial](https://www.amazon.fr/dp/B0F7X6MM9G)
+5. [Selected ABUS chin strap Scator(-E)](https://www.galaxus.ch/en/s4/product/abus-chin-strap-scator-e-work-safety-accessories-52403525)
+6. [Fiedler et al., “Contact Pressure and Flexibility of Multipin Dry EEG Electrodes”](https://ieeexplore.ieee.org/document/8307253)
+7. [Fiedler et al., “Flower electrodes for comfortable dry electroencephalography”](https://www.researchgate.net/publication/374418531_Flower_electrodes_for_comfortable_dry_electroencephalography)
+8. [Portillo-Lara et al., “Mind the gap: State-of-the-art technologies and applications for EEG-based brain–computer interfaces”](https://www.researchgate.net/publication/353384603_Mind_the_gap_State-of-the-art_technologies_and_applications_for_EEG-based_brain-computer_interfaces)
+9. [Chen et al., “Neural Correlates of Motor Recovery after Robot-Assisted Training in Chronic Stroke: A Multimodal Neuroimaging Study”](https://www.researchgate.net/publication/352291862_Neural_Correlates_of_Motor_Recovery_after_Robot-Assisted_Training_in_Chronic_Stroke_A_Multimodal_Neuroimaging_Study)
 
 ---
 
 ## 9. Appendices
 
-### Appendix A: Bill of materials
+### Appendix A: Electrode placement map
 
-`<link to BOM file>`
+The highlighted map below was prepared by the project author and identifies the selected measurement, reference, and ground positions.
 
-<!-- FILL With relevant items>
+![Confirmed EEG electrode positions](../headset/images/electrode-placement-map.png)
+
+- Yellow: 14 measurement electrodes
+- Magenta: FCz reference
+- Green: AFz ground
+
+### Appendix B: Current CAD file
+
+| File | Description | Format | Units | Status |
+|---|---|---|---|---|
+| [`frame design.step`](../headset/cad/frame%20design.step) | Current headset-frame prototype exported from Fusion 360 | STEP AP214 | mm | Work in progress |
+
+The complete assembly and the power-board and decoding-board casing models will be added when available.
+
+### Appendix C: Preliminary component list
+
+| Component | Source | Quantity | Status |
+|---|---|---:|---|
+| 3D-printed headset frame | Project CAD | 1 | PETG prototype in progress |
+| Transverse elastic bands | TBC | 4 | Not selected |
+| Electrode holders | Project design | 16 | In progress |
+| Datwyler SoftPulse Brush Long electrodes | Datwyler | 16 | Selected / purchased |
+| Buffer PCBs | Project electronics | 16 | Purchased; integration in progress |
+| Rear adjustment dial | Selected Amazon listing | 1 | Purchased; awaiting measurement/integration |
+| Chin strap | ABUS Scator(-E) | 1 | Purchased; awaiting measurement/integration |
+| Removable padding | TBC | TBC | Not selected |
+| Power-board casing | Project CAD | 1 | In progress |
+| Decoding-board casing | Project CAD | 1 | In progress |
+| Battery armband | TBC | 1 | Not selected |
