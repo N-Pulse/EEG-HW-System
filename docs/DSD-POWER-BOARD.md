@@ -89,19 +89,14 @@ proposed (issue, RFC, pull request)? -->
 
 | Term | Definition |
 |---|---|
-| `<TERM>` | `<Definition>` |
+| DSD | Design Solution Definition | 
+| EEG | Electroencephalography | 
+| IC | Integrated Circuit |
+| NTC | Negative Temperature Coefficient |
+| BMS | Battery Management System |
+| LDO | Low Dropout Regulator |
+| TVS | Transient Voltage Suppressor | 
 
-> <span style='color: red;'>EXAMPLE</span>
->
->| Term | Definition |
->|---|---|
->| DSD | Design Solution Definition | 
->| EEG | Electroencephalography | 
->| IC | Integrated Circuit |
->| NTC | Negative Temperature Coefficient |
->| BMS | Battery Management System |
->| LDO | Low Dropout Regulator |
->| TVS | Transient Voltage Suppressor | 
 
 ## 2. Requirements and traceability
 
@@ -110,20 +105,20 @@ the requirements this design directly addresses. -->
 
 | Requirement ID | Verification method | Status |
 |---|---|---|
-|   |   |   |
+| EEG-001 | T | System integration testing pending |
+| EEG-005 | T, A | Design validated — hardware testing pending |
+| EEG-006 | T | Electrical safety testing pending |
+| EEG-007 | T | EMC compliance testing pending |
+| EEG-010 | T, M | Skin temperature testing pending |
+| EEG-011 | T, M | Patient leakage-current testing pending|
+| SAF-008 | T, M | Skin temperature safety testing pending |
+| SAF-009 | T, M | Patient leakage-current testing pending |
 
 > <span style='color: red;'>EXAMPLE</span>
 >| Requirement ID | Verification method | Status |
 >|---|---|---|
->| EEG-001 | T | System integration testing pending |
->| EEG-005 | T, A | Design validated — hardware testing pending |
->| EEG-006 | T | Electrical safety testing pending |
->| EEG-007 | T | EMC compliance testing pending |
->| EEG-010 | T, M | Skin temperature testing pending |
->| EEG-011 | T, M | Patient leakage-current testing pending|
->| SAF-008 | T, M | Skin temperature safety testing pending |
->| SAF-009 | T, M | Patient leakage-current testing pending |
-> **Verification methods:** (D)emonstration, (T)est, (M)easurement, (I)nspection, (A)nalysis
+
+ **Verification methods:** (D)emonstration, (T)est, (M)easurement, (I)nspection, (A)nalysis
  
 
 ---
@@ -164,27 +159,20 @@ flowchart LR
 <!-- One subsection per significant choice. Use this pattern:
 Decision · Rationale · Requirements addressed · Consequences. -->
 
-#### 3.2.1 `<Design choice name>`
-
-- **Decision:** `<what was chosen>`
-- **Rationale:** `<why, with evidence or references>`
-- **Requirements addressed:** `REQ-xxx, REQ-yyy`
-- **Consequences / limitations:** `<what this commits us to or rules out>`
-
 #### 3.2.1 Battery 
 
 - **Decision:** Keeppower 2S1P 18650 3400mAh 7.2/7.4V Li-Ion with integrated BMS protection and three connections (+, −, Temp).
 - **Rationale:** The 2S configuration provides a nominal 7.4 V supply compatible with the selected power regulation architecture. Its 3400 mAh capacity was selected to support the required 4-hour EEG system autonomy, subject to power consumption and runtime validation. Its integrated BMS provides overcharge, overdischarge, and short-circuit protection and NTC thermistor enables battery temperature monitoring without an additional external sensor. Its compact dimensions ((H)37.0*(W)19.0*(L)*67.5mm) and light weight (100 g) make it a candidate for integration into the wearable system. This pack has numerous safety certifications, ensuring that it is safe to be worn. 
 - **Requirements addressed:** EEG-001 (battery autonomy), EEG-005 (battery safety).
-- **Consequences / limitations:** As this battery's BMS does not handle thermal protection, so a dedicated NTC-based protection circuit must be implemented on the Power Board. The battery is supplied with three wire leads, requiring an appropriate connector and secure cable routing. Battery autonomy and user comfort must be verified during system integration.
+- **Consequences / limitations:** As this battery's BMS does not handle thermal protection, a dedicated NTC-based protection circuit must be implemented on the Power Board. The battery is supplied with three wire leads, requiring an appropriate connector and secure cable routing. Battery autonomy and user comfort must be verified during system integration.
 
 
 #### 3.2.2 Charger and port
 
 - **Decision:** TI BQ25886 charger and USB-C port
-- **Rationale:** The BQ25886 is a standalone 2-cell Li-ion battery charger. Its characterisics are compatible with our battery's requirements. It is configurable as we can choose the charging current, charging voltage, and input current limit. This charger monitors battery temperature during charging through an NTC thermistor and provides indications of the charging state. This IC will also enters a low-power mode when not charging which reduces power consumption. The USB-C port was chosen because it is compact and widely used compared to the previous USB-A port. 
+- **Rationale:** The BQ25886 is a standalone 2-cell Li-ion battery charger. Its characteristics are compatible with our battery's requirements. It is configurable as we can choose the charging current, charging voltage, and input current limit. This charger monitors battery temperature during charging through an NTC thermistor and provides indications of the charging state. This IC will also enters a low-power mode when not charging which reduces power consumption. The USB-C port was chosen because it is compact and widely used compared to the previous USB-A port. 
 - **Requirements addressed:** EEG-005 (battery safety).
-- **Consequences / limitations:** As this charger operates without an MCU, the charging-status information available to the system is limited. Also, its NTC-based battery temperature monitoring is used during charging, which means we need a separate thermal protection circuit to monitor the battery temperature during discharge.
+- **Consequences / limitations:** As this charger operates without an MCU, the charging-status information available to the system is limited. Also, its NTC-based battery temperature monitoring is used during charging, which means we need a separate thermal protection circuit to monitor the battery temperature during discharge. 
 
 #### 3.2.3 Voltage conversion
 
@@ -195,18 +183,18 @@ Decision · Rationale · Requirements addressed · Consequences. -->
 
 #### 3.2.4 Thermal protection
 
-- **Decision:** A hysteresis comparator that compares the voltage derived from an NTC thermistor, which is placed between the two battery cells, with a reference voltage.  When the temperature recorded by the NTC thermistor exceeds 58°C, the comparator's output goes low, disabling the load switch placed at the LDO's output, cutting off the supply to the decoding board. Whe this happens, a buzzer sounds for a couple of seconds, signaling to the user that the system has overheated, and a yellow LED remains on while the system is disabled. When the temperature has gone back down to 50°C, the comparator's ouput goes back high and the supply to the decoding board is restored. The circuit uses an MCP6541 comparator, MCP1703AT LDO, AP2281 load switch, MFS201N-9-Z switch, LED and buzzer
-- **Rationale:** The BQ25886 charging IC monitors the battery temperature through the NTC thermistor during charging, but not during battery-powered operation. A separate thermal protection circuit is therefore required to monitor the battery temperature during operation and disconnect the decoding board in case of overheating. The hysteresis prevents repeated switching when the temperature fluctuates around the shutdown threshold. The buzzer and LED provide feedback to the user when overheating occurs.
+- **Decision:** A hysteresis comparator that compares the voltage derived from an NTC thermistor, which is placed between the two battery cells, with a reference voltage.  When the temperature recorded by the NTC thermistor exceeds 58°C, the comparator's output goes low, disabling the load switch placed at the LDO's output, cutting off the supply to the decoding board. When this happens, a buzzer sounds for a couple of seconds, signalling to the user that the system has overheated, and a yellow LED remains on while the system is disabled. When the temperature has gone back down to 50°C, the comparator's output goes back high and the supply to the decoding board is restored. The circuit uses an MCP6541 comparator, MCP1703AT LDO, AP2281 load switch, MFS201N-9-Z switch, LED and buzzer.
+- **Rationale:** The BQ25886 charging IC monitors the battery temperature through the NTC thermistor during charging, but not during battery-powered operation. A separate thermal protection circuit is therefore required to monitor the battery temperature during operation and disconnect the decoding board in case of overheating. The hysteresis prevents repeated switching when the temperature fluctuates around the shutdown threshold. The buzzer and LED provide feedback to the user when overheating occurs. Because the power board will not be directly visible to the user during operation, the buzzer was implemented to give an auditory clue about the system's state. The LED allows the user to know when the board will be operational again after overheating (ON : the battery is cooling and the supply to the decoding board is off, OFF : the cooling down is finished, the headset is once again operational). An LDO is placed upstream of the comparator to bring down the battery voltage to 5V which is in the supply voltage range of this IC (1.6-5.5V).
 - **Requirements addressed:** EEG-005 (battery safety), EEG-010 (skin-contact temperature), SAF-008 (prevention of skin burns).
-- **Consequences / limitations:** This solution requires additional components and PCB space. The thermal protection depends on the correct operation of the NTC thermistor, comparator, and load switch. The shutdown and recovery temperatures, as well as the buzzer and LED behavior, must be verified experimentally once the PCB is available.
+- **Consequences/ limitations:** This solution requires additional components and PCB space. The thermal protection depends on the correct operation of the NTC thermistor, comparator, and load switch. To know when the headset is operational again after overheating, the user should take off the headset and only put it back on once the yellow LED is off. There is also currently no mechanism to prevent the system from operating if the NTC switch is not in operating mode, it is up to the user to make sure that the switch is in this state. The shutdown and recovery temperatures, as well as the buzzer and LED behavior, must be verified experimentally once the PCB is available.
 
 
 #### 3.2.5 Connectorss
 
 - **Decision:** XT30F for the output to the EEG decoding board, 2.00mm Pitch Pico-Lock MOLEX for the battery input.
-- **Rationale:** `<why, with evidence or references>`
-- **Requirements addressed:** `REQ-xxx, REQ-yyy`
-- **Consequences / limitations:** `<what this commits us to or rules out>`
+- **Rationale:** Connectors are used instead of directly soldering the cables to the board to allow for easier debugging and part replacement. The Pico-Lock connector is a polarised and locking connector, which means that it can't be plugged backwards and it locks in place making the connection more resistant to tugs and vibrations. This connector can also handle the current ratings of the battery. The XT30 connector is also polarised and has a low contact resistance, minimising the voltage drop. This connector is not locking but its friction works well enough especially for prototyping. The female part is used on the Power Board to prevent short-circuits.
+- **Requirements addressed:** EEG-001
+- **Consequences / limitations:** These connectors take considerable space on the PCB, and the battery cables must be crimped.
 
 #### 3.2.6 Operating modes
 
@@ -215,21 +203,21 @@ stages. Include entry and exit conditions and what is active in each. -->
 
 | Mode / Stage | Purpose | Entry condition | Exit condition | Active components |
 |---|---|---|---|---|
-| OFF | No power to the system | Power switch open | Power switch closed | Battery's BMS |
+| OFF | No power to the system | Power switch open | Power switch closed | Battery's BMS, charging IC if USB-C is connected |
 | Nominal operation | Supplying power to the EEG system | Power switch closed, battery connected, NTC switch on operating mode, temperature below the threshold (connection to the decoding board) | overheating, battery disconnected or discharged, power switch open | Battery, buck, LDO, comparator|
-| Charging | Recharging the battery from the USB port |supply on the USB port, NTC switch on charging mode | USB port unplugged USB port, NTC switch on operating mode| USB-C port, charging IC, battery |
-| Safe / fault state (overheated) | Letting the battery cool down by stopping the supply to the decoding board| | | |
+| Charging | Recharging the battery from the USB port |supply on the USB port, NTC switch on charging mode, power switch open (manually set by user) | USB port unplugged USB port, NTC switch on operating mode, power switch closed| USB-C port, charging IC, battery |
+| Safe / fault state (overheated) | Allowing the battery to cool down by cutting off the supply to the EEG decoding board | Battery temperature exceeds 58°C during operation | Battery temperature drops below 50°C, automatically reactivating the load switch | Battery, BMS, buck-boost, LDO, NTC, comparator, load switch (OFF), LED, buzzer (temporarily) |
 
 ### 3.3 Functionally linked systems
 
-State here which other (sub-)systems are necessary or planned to be
-used with the sytem you're currently designing
+This board supplies the power required for the EEG system to operate. This system is comprised of the decoding board and the headset housing the electrodes. The Power Board is connected to the decoding board via two cables (+,-). 
 
 
 ### 3.4 Performance budgets and design margins
 
 Mass/Power/Compute/Delay budgets. Either include them here directly or link the relevant excel sheet
 
+Component list : 
 ---
 
 ## 4. Traded-off concepts
@@ -244,9 +232,13 @@ decisions and records why alternatives were rejected. -->
 ### 4.1 Trade-off method
 
 The trade-off method used was based on the following criteria : 
-- `<criteria nmbr 1>`
-- `<criteria nmbr 2>`
-- ...
+- Meets performance requirements
+- Safety and biosafety
+- Cost
+- Reproducibility and accessibility
+- Complexity and space 
+- Maintainability and community support
+
 
 
 `<Describe criteria, weights, and scoring scale. This is a standardized way to explicit your priorities in the design.>`
@@ -258,11 +250,11 @@ The trade-off method used was based on the following criteria :
 
 | Criterion | Weight (1 - 5) | Rationale for weight |
 |---|---|---|
-| Meets performance requirements | 5 | This ADC was chosen to be part of a first proof of concept. As such, performance is the priority. |
-| Safety and biosafety | 3 | ADC is not in direct contact with the patient. While a medical approved chip is favourable, it is not mandatory |
-| Cost | 3 | This is a proof of concept. The ADC is ordered in small batch and as such prices are higher. Additionally, budget is a constraint for this board  |
-| Reproducibility and accessibility | 4 | Proof of concept. By definition needs to work reliabily and predictably |
-| Supply chain robustness  | 2 | This ADC has high performance requirements that cannot be fulfilled with common chips. |
+| Meets performance requirements | 5 | This Power Board was chosen to be part of a first proof of concept. As such, performance is the priority. |
+| Safety and biosafety | 5 | This system can overheat and present risks to the patient so safety is very important. |
+| Cost | 3 | This is a proof of concept. The components for tis board are ordered in small batches and as such prices are higher. Additionally, budget is a constraint for this board.  |
+| Reproducibility and accessibility | 4 | Proof of concept. By definition needs to work reliabily and predictably. |
+| Complexity and space  | 3 | This board should be as small as possible while also minimising its complexity. |
 | Maintainability and community support | 1 | This is not expected to be replaced, changed or maintained. |
 
 Score scale : 
@@ -274,42 +266,137 @@ Score scale :
 
 ### 4.2 Traded-off design choices
 
-#### 4.2.1 `<Alternative design choice A>`
+#### 4.2.1 Temperature regulation with MCU
 
-- **Description:**
-- **Pros**:
+- **Description:** We considered using the native NTC from the battery and connecting it to a MCU that would be in charge of monitoring the temperature during operation.
+- **Pros**: Using software makes the regulation more flexible and easy to modify. The design can also be structured as a state machine with distinct states that each have their transition conditions and their own behaviour. 
+- **Cons**: The MCU still has to be supplied in order to control the states, which consumes power and would make the cooling process much longer. If we use the decoding board's MCU, then we would need more cables from one board to another, and the power would need to be cut off further downstream. If we decided to add a new one on the Power Board, it would take more space and it would make the design far more complicated.
+
+#### 4.2.2 Temperature regulation with MCU score
+
+ 
+
+| Criterion | Weight (1-5) | score (1-5) |
+|---|---|---|
+| Meets performance requirements | 5 | 4 |
+| Safety and biosafety | 4 | 5 |
+| Cost | 3 | 3 |
+| Reproducibility and accessibility | 4 | 4 |
+| Complexity and space | 3 | 2 |
+| Maintainability and community support | 1 | 4 |
+| ---|---|---|
+|Total Score| 54 | max score : 90 | 
+
+#### 4.2.3 IC that measures the temperature
+
+- **Description:** An IC that measures the temperature on its surface is used to do the temperature regulation. It would be pressed against the inside of the casing, closest to the user with the battery sitting behind it. The IC does the comparisons itself and by setting a resistor on its SET pin, we can set the limit temperature according to a formula.
+- **Pros**: 
 - **Cons**:
 
-#### 4.2.2 `<Alternative design choice A>` score
+#### 4.2.4 IC that measures the temperature score
 
  
 
 | Criterion | Weight (1-5) | score (1-5) |
 |---|---|---|
 | Meets performance requirements | 5 | 3 |
-| Safety and biosafety | 3 | 5 |
+| Safety and biosafety | 4 | 5 |
 | Cost | 3 | 1 |
 | Reproducibility and accessibility | 4 | 4 |
-| Supply chain robustness* | 2 | 2 |
+| Complexity and space | 3 | 1 |
 | Maintainability and community support | 1 | 1 |
 | ---|---|---|
 |Total Score| 54 | max score : 90 | 
 
-#### 4.2 `<Retained design choice>` score
+#### 4.2.5 Temperature regulation with pre-isntalled NTC and comparator score
 
 - **Pros**:
 - **Cons**:
 
 | Criterion | Weight (1-5) | score (1-5) |
 |---|---|---|
-| Meets performance requirements | 5 | 4 |
-| Safety and biosafety | 3 | 3 |
-| Cost | 3 | 3 |
+| Meets performance requirements | 5 | 3 |
+| Safety and biosafety | 4 | 5 |
+| Cost | 3 | 1 |
 | Reproducibility and accessibility | 4 | 4 |
-| Supply chain robustness* | 2 | 3 |
-| Maintainability and community support | 1 | 2 |
+| Complexity and space | 3 | 1 |
+| Maintainability and community support | 1 | 1 |
 | ---|---|---|
-|Total Score| 62 | max score : 90 | 
+|Total Score| 54 | max score : 90 | 
+
+#### 4.2.6 USB-A port
+
+- **Description:**
+- **Pros**:
+- **Cons**:
+
+#### 4.2.7 USB-A port score
+
+ 
+
+| Criterion | Weight (1-5) | score (1-5) |
+|---|---|---|
+| Meets performance requirements | 5 | 3 |
+| Safety and biosafety | 4 | 5 |
+| Cost | 3 | 1 |
+| Reproducibility and accessibility | 4 | 4 |
+| Complexity and space | 3 | 1 |
+| Maintainability and community support | 1 | 1 |
+| ---|---|---|
+|Total Score| 54 | max score : 90 | 
+
+#### 4.2.8 USB-C port score
+
+- **Pros**:
+- **Cons**:
+
+| Criterion | Weight (1-5) | score (1-5) |
+|---|---|---|
+| Meets performance requirements | 5 | 3 |
+| Safety and biosafety | 4 | 5 |
+| Cost | 3 | 1 |
+| Reproducibility and accessibility | 4 | 4 |
+| Complexity and space | 3 | 1 |
+| Maintainability and community support | 1 | 1 |
+| ---|---|---|
+|Total Score| 54 | max score : 90 | 
+
+#### 4.2.9 Buck for voltage regulation
+
+- **Description:**
+- **Pros**:
+- **Cons**:
+
+#### 4.2.10 Buck for voltage regulation score
+
+ 
+
+| Criterion | Weight (1-5) | score (1-5) |
+|---|---|---|
+| Meets performance requirements | 5 | 3 |
+| Safety and biosafety | 4 | 5 |
+| Cost | 3 | 1 |
+| Reproducibility and accessibility | 4 | 4 |
+| Complexity and space | 3 | 1 |
+| Maintainability and community support | 1 | 1 |
+| ---|---|---|
+|Total Score| 54 | max score : 90 | 
+
+#### 4.2.11 Buck-boost and LDO for voltage regulation score
+
+- **Pros**:
+- **Cons**:
+
+| Criterion | Weight (1-5) | score (1-5) |
+|---|---|---|
+| Meets performance requirements | 5 | 3 |
+| Safety and biosafety | 4 | 5 |
+| Cost | 3 | 1 |
+| Reproducibility and accessibility | 4 | 4 |
+| Complexity and space | 3 | 1 |
+| Maintainability and community support | 1 | 1 |
+| ---|---|---|
+|Total Score| 54 | max score : 90 | 
 
 ### 4.3 Trade-off summary
 
