@@ -1,0 +1,17 @@
+.502494-0270 :1 ;Headers & Wire Housings 2.0 W/B Sgl R/A Rec Asy 2Ckt Embs Tp Pkg
+"5024940270"
+*STM J
+*NGS
+*PNM 1=1 2=2 3=MP1 4=MP2
+*PLB 1="1" 2="2" 3="MP1" 4="MP2"
+*MXP 4
+*DFN 502494-0270
+~!Mouser Part Number (538-502494-0270)
+~!Link Mouser Price/Stock (https://www.mouser.co.uk/ProductDetail/Molex/502494-0270?qs=sccQW%252BrT69bVmCdKb5dQ%2FA%3D%3D)
+~!Manufacturer_Name (Molex)
+~!Manufacturer_Part_Number (502494-0270)
+~!Link Datasheet (https://componentsearchengine.com/Datasheets/1/502494-0270.pdf)
+~!Height (6.85mm)
+~!3D_Model (502494-0270)
+"502494-0270"
+1.1!U 2.1!U 3.1!U 4.1!U 

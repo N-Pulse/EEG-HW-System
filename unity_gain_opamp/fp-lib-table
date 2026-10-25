@@ -1,0 +1,4 @@
+(fp_lib_table
+	(version 7)
+	(lib (name "N_pulse") (type "KiCad") (uri "${KIPRJMOD}/N_pulse.pretty") (options "") (descr ""))
+)

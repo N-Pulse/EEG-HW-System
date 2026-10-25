@@ -1,0 +1,17 @@
+.502494-0470 :1 ;MOLEX - 502494-0470 - RECEPTACLE, R/A, SMT, 4WAY, 2MM
+"5024940470"
+*STM J
+*NGS
+*PNM 1=1 2=2 3=3 4=4 5=MP1 6=MP2
+*PLB 1="1" 2="2" 3="3" 4="4" 5="MP1" 6="MP2"
+*MXP 6
+*DFN 502494-0470
+~!Mouser Part Number (538-502494-0470)
+~!Link Mouser Price/Stock (https://www.mouser.co.uk/ProductDetail/Molex/502494-0470/?qs=zRnNmUVysJf%252Bc0fbcAK02g%3D%3D)
+~!Manufacturer_Name (Molex)
+~!Manufacturer_Part_Number (502494-0470)
+~!Link Datasheet (https://www.molex.com/pdm_docs/sd/5024940470_sd.pdf)
+~!Height (6.85mm)
+~!3D_Model (502494-0470)
+"502494-0470"
+1.1!U 2.1!U 3.1!U 4.1!U 5.1!U 6.1!U 
