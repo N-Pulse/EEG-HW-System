@@ -57,8 +57,15 @@ The new design combines elements from the previous years. We decided to make a r
 | File | Description | Format | Units | Status |
 |---|---|---|---|---|
 | [`frame design.step`](cad/frame%20design.step) | Current headset-frame prototype exported from Fusion 360 | STEP AP214 | mm | Work in progress |
+| [`frame test.step`](cad/frame%20test.step) | Additional headset-frame prototype export | STEP AP214 | mm | Work in progress |
+| [`Power board box.step`](cad/Power%20board%20box.step) | Power-board enclosure body | STEP AP214 | mm | First prototype |
+| [`Power board lid.step`](cad/Power%20board%20lid.step) | Power-board enclosure lid | STEP AP214 | mm | First prototype |
+| [`Decoding box.step`](cad/Decoding%20box.step) | Decoding-board enclosure body | STEP AP214 | mm | First prototype |
+| [`decoding lid.step`](cad/decoding%20lid.step) | Decoding-board enclosure lid | STEP AP214 | mm | First prototype |
+| [`Battery box.step`](cad/Battery%20box.step) | Battery enclosure body | STEP AP214 | mm | Work in progress |
+| [`battery lid.step`](cad/battery%20lid.step) | Battery enclosure lid | STEP AP214 | mm | Work in progress |
 
-The complete assembly and the power-board and decoding-board casing models will be added when they are ready.
+The complete headset assembly will be added when it is ready.
 
 ## Planned purchased components
 

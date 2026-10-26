@@ -471,8 +471,15 @@ The highlighted map below was prepared by the project author and identifies the 
 | File | Description | Format | Units | Status |
 |---|---|---|---|---|
 | [`frame design.step`](../headset/cad/frame%20design.step) | Current headset-frame prototype exported from Fusion 360 | STEP AP214 | mm | Work in progress |
+| [`frame test.step`](../headset/cad/frame%20test.step) | Additional headset-frame prototype export | STEP AP214 | mm | Work in progress |
+| [`Power board box.step`](../headset/cad/Power%20board%20box.step) | Power-board enclosure body | STEP AP214 | mm | First prototype |
+| [`Power board lid.step`](../headset/cad/Power%20board%20lid.step) | Power-board enclosure lid | STEP AP214 | mm | First prototype |
+| [`Decoding box.step`](../headset/cad/Decoding%20box.step) | Decoding-board enclosure body | STEP AP214 | mm | First prototype |
+| [`decoding lid.step`](../headset/cad/decoding%20lid.step) | Decoding-board enclosure lid | STEP AP214 | mm | First prototype |
+| [`Battery box.step`](../headset/cad/Battery%20box.step) | Battery enclosure body | STEP AP214 | mm | Work in progress |
+| [`battery lid.step`](../headset/cad/battery%20lid.step) | Battery enclosure lid | STEP AP214 | mm | Work in progress |
 
-Additional STEP files will be added when they are provided and ready for repository review.
+The complete headset assembly will be added when it is ready for repository review.
 
 ### Appendix C: Preliminary component list
 
@@ -487,7 +494,7 @@ Additional STEP files will be added when they are provided and ready for reposit
 | Rear adjustment dial | Selected Amazon listing | 1 | Ordered; awaiting delivery and dimensional validation |
 | Chin strap | ABUS Scator(-E) | 1 | Ordered; awaiting delivery and dimensional validation |
 | Removable padding | Lumos Ultra candidate |  | Candidate under consideration |
-| Power-board enclosure and lid | Project CAD | 1 | First PETG prototype; measured mass 40.0 g; STEP files to be added later |
-| Decoding-board enclosure and lid | Project CAD | 1 | First PETG prototype; measured mass 40.5 g; STEP files to be added later |
-| Battery casing | Project CAD | 1 | Designed; ventilation and cable opening planned; STEP files to be added later |
+| Power-board enclosure and lid | Project CAD | 1 | First PETG prototype; measured mass 40.0 g; STEP files available in `headset/cad/` |
+| Decoding-board enclosure and lid | Project CAD | 1 | First PETG prototype; measured mass 40.5 g; STEP files available in `headset/cad/` |
+| Battery casing | Project CAD | 1 | Designed; ventilation and cable opening planned; STEP files available in `headset/cad/` |
 | Battery arm strap |  | 1 | Development planned for the week of 2026-10-26 |
