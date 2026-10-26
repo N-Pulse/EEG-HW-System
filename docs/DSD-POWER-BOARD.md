@@ -267,28 +267,28 @@ Score scale :
 
 #### 4.2.1 Temperature regulation with MCU
 
-- **Description:** We considered using the integrated NTC from the battery and connecting it to a MCU that would be in charge of monitoring the temperature during operation.
+- **Description:** We considered using the integrated NTC from the battery and connecting it to a MCU that would be in charge of monitoring the temperature during operation. The design is evaluated without a hardware backup.
 - **Pros**: Using software makes the thermal protection more flexible and easy to modify. The design can also be structured as a state machine with distinct states, each having their transition conditions and behaviour. 
-- **Cons**: The MCU would need to remain powered in order to monitor the temperature and control the protection, which consumes additional power during the cooling phase. If we used the decoding board's MCU, we would need additional connections between the two boards and a way to keep the MCU powered while the EEG load is disconnected. If we decided to add a new one on the Power Board, it would take more space and it would make the design far more complicated.
-
+- **Cons**: The MCU must remain powered to monitor the temperature and control the protection, which consumes energy during the cooling phase and prolongs it. Reusing the decoding board’s MCU would require additional connections between the two boards, and a way to keep the MCU powered while the EEG load is disconnected. Adding a dedicated MCU on the Power Board would take more space and make the design far more complicated. The over-temperature protection also relies on software running correctly. A firmware bug, a hung or crashed program, a brown-out during start-up, or a misconfigured threshold could leave the battery unprotected, and nothing in this option would catch it.
+- 
 #### 4.2.2 Temperature regulation with MCU score
 
 | Criterion | Weight (1-5) | score (1-5) |
 |---|---|---|
 | Meets performance requirements | 5 | 4 |
-| Safety and biosafety | 5 | 5 |
+| Safety and biosafety | 5 | 4 |
 | Cost | 3 | 3 |
 | Reproducibility and accessibility | 4 | 4 |
 | Complexity and space | 3 | 2 |
 | Maintainability and community support | 1 | 4 |
 | ---|---|---|
-| **Total Score** | | **70 / 105; 66.7%** | 
+| **Total Score** | | **75 / 105; 71.4%** | 
 
 #### 4.2.3 IC that measures the temperature
 
-- **Description:** An IC that measures the temperature on its surface is used to do the temperature regulation. It would be pressed against the inside of the casing, closest to the user with the battery sitting behind it. The IC does the comparisons itself and by setting a resistor on its SET pin, we can set the limit temperature according to a formula.
-- **Pros**: 
-- **Cons**:
+- **Description:** A temperature-sensing IC with an integrated comparator measures the temperature at its own surface and handles the regulation itself. It would be mounted in one of two positions: pressed against the inside of the casing on the side closest to the user, with the battery behind it, or placed directly against the battery. The trip temperature is set by an external resistor on the SET pin, following the formula given in the datasheet. The hysteresis band is selected by tying a second pin to VDD or GND.
+- **Pros**: The solution needs very few components: one IC and two resistors. The comparison and hysteresis are handled internally by the IC, so the behaviour is predictable and more reliable than a discrete implementation.
+- **Cons**: Placing the IC directly on the battery exposes the neighbouring PCB components to the battery’s heat, which could damage them or degrade the device’s operation. Placing the IC on the casing means we measure the casing temperature rather than the battery’s. The casing is only an indirect indicator of the battery’s heat, so the trip threshold would have to be derived from thermal margin calculations, which are complex and unreliable. The trip point also depends on how well the IC is thermally coupled to the casing or battery, so the actual trip temperature can vary between trials. Finally, a single sensor only measures one side of the casing. Another side could be hotter, which puts the patient at risk of burns on contact.
 
 #### 4.2.4 IC that measures the temperature score
  
@@ -296,35 +296,35 @@ Score scale :
 | Criterion | Weight (1-5) | score (1-5) |
 |---|---|---|
 | Meets performance requirements | 5 | 3 |
-| Safety and biosafety | 4 | 5 |
-| Cost | 3 | 1 |
-| Reproducibility and accessibility | 4 | 4 |
-| Complexity and space | 3 | 1 |
-| Maintainability and community support | 1 | 1 |
+| Safety and biosafety | 4 | 2 |
+| Cost | 3 | 4 |
+| Reproducibility and accessibility | 4 | 2 |
+| Complexity and space | 3 | 5 |
+| Maintainability and community support | 1 | 3 |
 | ---|---|---|
-|Total Score| 54 | max score : 90 | 
+|Total Score| 63 | max score : 105 | 
 
 #### 4.2.5 Temperature regulation with pre-isntalled NTC and comparator score
 
-- **Pros**:
-- **Cons**:
+- **Pros**: The NTC is inside the battery pack, so it measures the cell temperature itself, with no extra sensor and no thermal-coupling uncertainty. Its reliability is backed by the battery’s certifications. The protection is entirely analogue, so it cannot crash, and it operates independently of the decoding board, which lets the load switch sit on the LDO’s output without extra wiring between the boards.
+- **Cons**: The slide switch must be set by the user. If it is left in the charge position, the comparator receives no temperature signal and the protection is inactive. Changing the trip or release temperature means replacing resistors, whereas the MCU option needs only a firmware change. The circuit needs the comparator, load switch, LDO, switch, passives, LED and buzzer, which makes it the bulkiest option. The MCP6541 is limited to a 5.5 V supply and no suitable lower rail exists on this board, so a dedicated 5 V LDO is required, which adds cost and area.
 
 | Criterion | Weight (1-5) | score (1-5) |
 |---|---|---|
-| Meets performance requirements | 5 | 3 |
-| Safety and biosafety | 4 | 5 |
-| Cost | 3 | 1 |
+| Meets performance requirements | 5 | 5 |
+| Safety and biosafety | 5 | 3 |
+| Cost | 3 | 3 |
 | Reproducibility and accessibility | 4 | 4 |
-| Complexity and space | 3 | 1 |
-| Maintainability and community support | 1 | 1 |
+| Complexity and space | 3 | 3 |
+| Maintainability and community support | 1 | 4 |
 | ---|---|---|
-|Total Score| 54 | max score : 90 | 
+|Total Score| 78 | max score : 105 | 
 
 #### 4.2.6 USB-A port
 
-- **Description:**
-- **Pros**:
-- **Cons**:
+- **Description:** A USB-A receptacle would supply 5 V to the BQ25886’s VBUS input to charge the battery, with D+/D− connected to the charger for source detection.
+- **Pros**: The interface is simple: no CC pins or pull-down resistors are needed. USB-A ports and chargers are also found on most computers and legacy adapters.
+- **Cons**: The USB-A receptacle is much wider and deeper than a USB-C one, which works against the compact form factor needed for an EEG headset. The connector is not reversible, which is inconvenient and increases mechanical stress on the port if forced. It is also being phased out, as new devices and chargers increasingly come with USB-C only.
 
 #### 4.2.7 USB-A port score
 
@@ -333,35 +333,35 @@ Score scale :
 | Criterion | Weight (1-5) | score (1-5) |
 |---|---|---|
 | Meets performance requirements | 5 | 3 |
-| Safety and biosafety | 4 | 5 |
-| Cost | 3 | 1 |
+| Safety and biosafety | 5 | 4 |
+| Cost | 3 | 4 |
 | Reproducibility and accessibility | 4 | 4 |
-| Complexity and space | 3 | 1 |
-| Maintainability and community support | 1 | 1 |
+| Complexity and space | 3 | 2 |
+| Maintainability and community support | 1 | 3 |
 | ---|---|---|
-|Total Score| 54 | max score : 90 | 
+|Total Score| 72 | max score : 105 | 
 
 #### 4.2.8 USB-C port score
 
-- **Pros**:
-- **Cons**:
+- **Pros**: The receptacle is much smaller and thinner than USB-A, which helps keep the board small. The cable can be plugged in either way, which is more convenient and reduces the risk of damaging the port. It is also the common charging interface on current devices, so users are likely to already own a compatible charger and cable.
+- **Cons**: The 16-pin receptacle has fine-pitch pads and requires the two CC resistors which makes it more complex. This solution is also slightly more expensive.
 
 | Criterion | Weight (1-5) | score (1-5) |
 |---|---|---|
-| Meets performance requirements | 5 | 3 |
-| Safety and biosafety | 4 | 5 |
-| Cost | 3 | 1 |
-| Reproducibility and accessibility | 4 | 4 |
-| Complexity and space | 3 | 1 |
-| Maintainability and community support | 1 | 1 |
+| Meets performance requirements | 5 | 5 |
+| Safety and biosafety | 5 | 4 |
+| Cost | 3 | 3 |
+| Reproducibility and accessibility | 4 | 3 |
+| Complexity and space | 3 | 4 |
+| Maintainability and community support | 1 | 5 |
 | ---|---|---|
-|Total Score| 54 | max score : 90 | 
+|Total Score| 83 | max score : 105 | 
 
 #### 4.2.9 Buck for voltage regulation
 
-- **Description:**
-- **Pros**:
-- **Cons**:
+- **Description:** A single step-down (buck) converter would regulate the battery voltage directly to the rail that supplies the decoding board, with no second stage.
+- **Pros**: With only one stage, we have a higher efficiency. This design also requires fewer components and board area, it also makes it less costly.
+- **Cons**: A buck can only step down, so the usable battery range is reduced once the battery voltage is below 5.7V. Nothing downstream attenuates the converter’s switching ripple, so it would be carried to the decoding board, which is of highest importance in our system.
 
 #### 4.2.10 Buck for voltage regulation score
 
@@ -369,37 +369,42 @@ Score scale :
 
 | Criterion | Weight (1-5) | score (1-5) |
 |---|---|---|
-| Meets performance requirements | 5 | 3 |
-| Safety and biosafety | 4 | 5 |
-| Cost | 3 | 1 |
+| Meets performance requirements | 5 | 2 |
+| Safety and biosafety | 5 | 4 |
+| Cost | 3 | 4 |
 | Reproducibility and accessibility | 4 | 4 |
-| Complexity and space | 3 | 1 |
-| Maintainability and community support | 1 | 1 |
+| Complexity and space | 3 | 4 |
+| Maintainability and community support | 1 | 4 |
 | ---|---|---|
-|Total Score| 54 | max score : 90 | 
+|Total Score| 74 | max score : 105 | 
 
 #### 4.2.11 Buck-boost and LDO for voltage regulation score
 
-- **Pros**:
-- **Cons**:
+- **Pros**: The buck-boost converter can step up or down, so the output stays stable from a full to a nearly empty battery, which uses more of the available capacity. The LDO attenuates the buck-boost’s switching ripple, so less disturbance reaches the decoding board. The trimmer also allows the final voltage to be tuned after manufacturing, which is useful on a proof of concept.
+- **Cons**: We have a lower efficiency because of the two stages. The design needs two regulators, an inductor, a trimmer and additional capacitors and resistors, so it takes more board area and costs more.
 
 | Criterion | Weight (1-5) | score (1-5) |
 |---|---|---|
-| Meets performance requirements | 5 | 3 |
-| Safety and biosafety | 4 | 5 |
-| Cost | 3 | 1 |
-| Reproducibility and accessibility | 4 | 4 |
-| Complexity and space | 3 | 1 |
-| Maintainability and community support | 1 | 1 |
+| Meets performance requirements | 5 | 5 |
+| Safety and biosafety | 5 | 4 |
+| Cost | 3 | 3 |
+| Reproducibility and accessibility | 4 | 3 |
+| Complexity and space | 3 | 2 |
+| Maintainability and community support | 1 | 4 |
 | ---|---|---|
-|Total Score| 54 | max score : 90 | 
+|Total Score| 76 | max score : 105 | 
 
 ### 4.3 Trade-off summary
 
-| Option | Score | Retained | Key reason |
-|---|---|---|---|
-| Retained concept | 62 | Yes | Better performance, lower price |
-| Alternative A | 54 | No | Too expensive, lower performance|
+| Decision | Option | Score (/105) | Retained | Key reason |
+|---|---|---|---|---|
+| Temperature regulation | NTC + hardware comparator | 78 | **Yes** | Measures the battery's own NTC, needs no firmware, low power. Weakness: manual switch. |
+| Temperature regulation | MCU | 75 | No | Flexible, but must stay powered, adds cabling or complexity, and depends on firmware. |
+| Temperature regulation | Temperature-sensing IC | 63 | No | Few components, but measures the casing, so the trip point varies and burn risk remains. |
+| Charging port | USB-C | 83 | **Yes** | Compact, reversible and standard. |
+| Charging port | USB-A | 72 | No | Bulky, not reversible and being phased out. |
+| Voltage regulation | Buck-boost + LDO | 76 | **Yes** | Stable output over the full battery range and low noise. |
+| Voltage regulation | Buck only | 74 | No | Switching noise reaches the decoding board which can degrade the electrode signal. |
 
 ## 5. Quality management and compliance
 
