@@ -1,7 +1,7 @@
 # Design Solution Definition: `Active Electrode Buffer Board (AEB-1)`
 
-> **Project:** `N-Pulse (EEG headset)`
-> **Document ID:** `DSD-<NNN>-BUFFER-BOARD`
+> **Project:** `N-pulse – Wearable EEG System for Prosthetic Control`
+> **Document ID:** `DSD-EEG-BUFFER-BOARD-001`
 > **Version:** `0.1.0` · **Status:** `Draft`
 > **Project phase:** `Prototype` (board rev 1.0: schematic and layout finished, not yet fabricated)
 > **Last modified:** `2026-10-25`
@@ -28,10 +28,10 @@ Items still to be completed by the author are marked **[TO COMPLETE]**.
 | Role | Name | Affiliation / Handle | Date | Signature / Review link |
 |---|---|---|---|---|
 | Author(s) | Julian Rodriguez | EEG Board Designer / @Julian-R-R | 2026-10-25 | |
-| Reviewer (technical) | **[TO COMPLETE]** | | | |
-| Concurrence (SE Reviewer) | **[TO COMPLETE]** | | | |
-| Concurrence (Quality management reviewer) | **[TO COMPLETE]** | | | |
-| Approval (Project Manager) | **[TO COMPLETE]** | | | |
+| Reviewer (technical) | Maëlys Clerget | N-pulse — EEG Team Leader | @maelysclerget | | |
+| Concurrence (SE Reviewer) | Luca Seelbach | N-pulse — System Engineer Electronics | | |
+| Concurrence (Quality management reviewer) | Armelle Chritin | N-pulse — Quality Management | | |
+| Approval (Project Manager) | Elodie Dubois | N-pulse — Project Manager | | |
 
 > Note : Link approval to any relevant PR (Pull Request)
 > Affiliation/Handle : Role/ Username on Github
@@ -82,7 +82,7 @@ It covers:
 ### 1.2 Responsibility and change authority
 
 - **Document owner:** `Julian Ruiz Rodriguez (EEG board designer, @Julian-R-R)`
-- **Change authority:** **[TO COMPLETE: role / committee that approves changes]**
+- **Change authority:** `EEG Team Leader and System Engineer Electronics, subject to project review and approval procedures`
 - **Change process:** changes are proposed as a pull request against the board repository. The schematic is the single source of truth: the BOM is regenerated from it with `Docs/BOM/build_baskets.py`.
 
 ### 1.3 Abbreviated terms and definitions
@@ -467,7 +467,7 @@ Owners and due dates are proposals. **[TO COMPLETE: owners and real dates]**
 | OI-01 | **Noise budget.** R1 adds ≈ 0.48 µVrms (0.5–65 Hz), about 3× the EEG board's own noise. Confirm against the REQ-EEG-02 target. If it is too high, lower R1: ≥ 110 kΩ still keeps the SFC current ≤ 50 µA at 5.5 V (120 kΩ gives ≈ 0.36 µVrms). | J. Ruiz Rodriguez + requirement owner | Before fab | Noise target missed |
 | OI-02 | **DRC / ERC.** DRC: 1 error (the J5 strain-relief hole touches the board edge), 3 text-height and 3 text-thickness warnings (0.65 / 0.7 mm < 0.8 mm), and the front text is clipped by the J3 mask. ERC: 2 errors (no PWR_FLAG on the supply and GND) and 4 warnings (connector shield pins typed as power input). Fix them or document waivers. | J. Ruiz Rodriguez | Before fab | Real errors hidden in the noise; unreadable silkscreen |
 | OI-03 | **Build options.** Decide C2 (fit or not) after the bring-up RF test. Decide J5 or J6 for the output. Add a silkscreen note "R3 DNP with IC1". | J. Ruiz Rodriguez | Bring-up | Op-amp latched if R3 is fitted with IC1 |
-| OI-04 | **Electrode and mechanics.** Electrode model (dry / wet, material), how it is fixed in the 8.2 mm hole, which side faces the scalp, cap holder, mass. | **[TO COMPLETE]** | Before fab | Board does not fit the electrode or the cap |
+| OI-04 | **Electrode and mechanics.** Electrode model (dry / wet, material), how it is fixed in the 8.2 mm hole, which side faces the scalp, cap holder, mass. | Yassin Elaraby | Before fab | Board does not fit the electrode or the cap |
 | OI-05 | **Contact quality and rev 2 ideas.** No input guard ring and no DC bias path: with the contact lost, the output drifts to a rail. Define how contact quality is checked (50 Hz amplitude, AC test signal). For rev 2, consider a guard ring driven by the output around `ch_in`. | J. Ruiz Rodriguez | Rev 2 | Bad contacts not detected |
 | OI-06 | **Quantity and reference electrode.** Number of boards to build (16 channels + reference + spares). Whether the reference electrode is an AEB decides the EEG-board fault current (DSD-EEG-BOARD OI-03). | J. Ruiz Rodriguez | Before ordering | Too few boards; SFC exceeded on the reference |
 
@@ -506,7 +506,7 @@ Owners and due dates are proposals. **[TO COMPLETE: owners and real dates]**
 | R3 | 0 Ω | Stackpole RMCF0805ZT0R00 | 0805 | DNP | Mouser |
 | C1 | 100 nF X7R 50 V | Samsung CL21B104KBCNNNC | 0805 | Yes | Mouser |
 | C2 | 10 pF C0G 50 V | Yageo CC0805JRNPO9BN100 | 0805 | DNP | Mouser |
-| J1, J2 | 2-pin Pico-Lock 1.00 mm RA SMD | Molex 503763-0291 (basket still 205338-0002) | SMD | Yes | **[TO COMPLETE]** |
+| J1, J2 | 2-pin Pico-Lock 1.00 mm RA SMD | Molex 503763-0291| SMD | Yes | Mouser 538-503763-0291|
 | J3 | Electrode pad | PCB pad Ø11 mm, 8.2 mm hole | – | – | – |
 | J5 | Output wire pad | PCB pad, 0.75 mm² wire with strain relief | – | – | – |
 | J6 | Output pin | Samtec TSW-101-08-T-S-RA (1 × 2.54 mm RA) | THT | Yes | Mouser |
