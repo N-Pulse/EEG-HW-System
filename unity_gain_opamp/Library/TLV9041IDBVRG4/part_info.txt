@@ -1,0 +1,9 @@
+Manufacturer=Texas Instruments
+PartNumber=TLV9041IDBVRG4
+PartCategory=Integrated Circuit
+PackageCategory=SOT23 (5-Pin)
+PinCount=5
+Version=1.1
+Released=2025-12-24 09:46:03
+Downloaded=2026-09-24 21:54:01
+3D=Y

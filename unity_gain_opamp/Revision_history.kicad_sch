@@ -1,0 +1,15 @@
+(kicad_sch
+	(version 20260306)
+	(generator "eeschema")
+	(generator_version "10.0")
+	(uuid "cca222fb-6011-41ef-a71b-29f3e30070c2")
+	(paper "A4")
+	(title_block
+		(title "Impulse")
+		(date "2026-09-05")
+		(rev "0.1")
+		(comment 1 "Julian RR.")
+		(comment 5 "Electronics Workshop")
+	)
+	(lib_symbols)
+)
