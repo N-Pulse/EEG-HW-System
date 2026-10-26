@@ -192,8 +192,8 @@ Decision · Rationale · Requirements addressed · Consequences. -->
 #### 3.2.5 Connectorss
 
 - **Decision:** XT30F for the output to the EEG decoding board, 2.00mm Pitch Pico-Lock MOLEX for the battery input.
-- **Rationale:** Connectors are used instead of directly soldering the cables to the board to allow for easier debugging and part replacement. The Pico-Lock connector is a polarised and locking connector, which means that it can't be plugged backwards and it locks in place making the connection more resistant to tugs and vibrations. This connector can also handle the current ratings of the battery. The XT30 connector is also polarised and has a low contact resistance, minimising the voltage drop. This connector is not locking but its friction works well enough especially for prototyping. The female part is used on the Power Board to prevent short-circuits.
-- **Requirements addressed:** EEG-001
+- **Rationale:** Connectors are used instead of directly soldering the cables to the board to allow for easier debugging and part replacement. The Pico-Lock connector is a polarised and locking connector, which means that it can't be plugged backwards and it locks in place making the connection more resistant to tugs and vibrations. This connector can support the maximum current supplied by the battery. The XT30 connector is also polarised and has a low contact resistance, minimising the voltage drop. This connector is not locking but its friction works well enough especially for prototyping. The female connector is used on the Power Board to reduce the risk of accidental short circuits by limiting access to exposed contacts.
+- **Requirements addressed:** EEG-005 (battery safety)
 - **Consequences / limitations:** These connectors take considerable space on the PCB, and the battery cables must be crimped.
 
 #### 3.2.6 Operating modes
@@ -204,7 +204,7 @@ stages. Include entry and exit conditions and what is active in each. -->
 | Mode / Stage | Purpose | Entry condition | Exit condition | Active components |
 |---|---|---|---|---|
 | OFF | No power to the system | Power switch open | Power switch closed | Battery's BMS, charging IC if USB-C is connected |
-| Nominal operation | Supplying power to the EEG system | Power switch closed, battery connected, NTC switch on operating mode, temperature below the threshold (connection to the decoding board) | overheating, battery disconnected or discharged, power switch open | Battery, buck, LDO, comparator|
+| Nominal operation | Supplying power to the EEG system | Power switch closed, battery connected, NTC switch on operating mode, temperature below the threshold (connection to the decoding board) | overheating, battery disconnected or discharged, power switch open | Battery, buck-boost, LDO, comparator|
 | Charging | Recharging the battery from the USB port |supply on the USB port, NTC switch on charging mode, power switch open (manually set by user) | USB port unplugged USB port, NTC switch on operating mode, power switch closed| USB-C port, charging IC, battery |
 | Safe / fault state (overheated) | Allowing the battery to cool down by cutting off the supply to the EEG decoding board | Battery temperature exceeds 58°C during operation | Battery temperature drops below 50°C, automatically reactivating the load switch | Battery, BMS, buck-boost, LDO, NTC, comparator, load switch (OFF), LED, buzzer (temporarily) |
 
@@ -240,7 +240,6 @@ The trade-off method used was based on the following criteria :
 - Maintainability and community support
 
 
-
 `<Describe criteria, weights, and scoring scale. This is a standardized way to explicit your priorities in the design.>`
 
 <span style='color: red;'> The table given below is an example. Adapt it with the above mentionned criterias</span>
@@ -250,12 +249,12 @@ The trade-off method used was based on the following criteria :
 
 | Criterion | Weight (1 - 5) | Rationale for weight |
 |---|---|---|
-| Meets performance requirements | 5 | This Power Board was chosen to be part of a first proof of concept. As such, performance is the priority. |
+| Meets performance requirements | 5 | The Power Board is part of a first proof of concept. As such, stable and low-noise power delivery is a priority. |
 | Safety and biosafety | 5 | This system can overheat and present risks to the patient so safety is very important. |
 | Cost | 3 | This is a proof of concept. The components for tis board are ordered in small batches and as such prices are higher. Additionally, budget is a constraint for this board.  |
-| Reproducibility and accessibility | 4 | Proof of concept. By definition needs to work reliabily and predictably. |
+| Reproducibility and accessibility | 4 | The design should be easy to reproduce using accessible components and standard assembly methods. |
 | Complexity and space  | 3 | This board should be as small as possible while also minimising its complexity. |
-| Maintainability and community support | 1 | This is not expected to be replaced, changed or maintained. |
+| Maintainability and community support | 1 | As this is an early prototype, long-term maintenance and community support are less important than performance and safety. However, the design should still allow debugging and component replacement. |
 
 Score scale : 
 > [1] : Does not meet any requirements
@@ -268,24 +267,22 @@ Score scale :
 
 #### 4.2.1 Temperature regulation with MCU
 
-- **Description:** We considered using the native NTC from the battery and connecting it to a MCU that would be in charge of monitoring the temperature during operation.
-- **Pros**: Using software makes the regulation more flexible and easy to modify. The design can also be structured as a state machine with distinct states that each have their transition conditions and their own behaviour. 
-- **Cons**: The MCU still has to be supplied in order to control the states, which consumes power and would make the cooling process much longer. If we use the decoding board's MCU, then we would need more cables from one board to another, and the power would need to be cut off further downstream. If we decided to add a new one on the Power Board, it would take more space and it would make the design far more complicated.
+- **Description:** We considered using the integrated NTC from the battery and connecting it to a MCU that would be in charge of monitoring the temperature during operation.
+- **Pros**: Using software makes the thermal protection more flexible and easy to modify. The design can also be structured as a state machine with distinct states, each having their transition conditions and behaviour. 
+- **Cons**: The MCU would need to remain powered in order to monitor the temperature and control the protection, which consumes additional power during the cooling phase. If we used the decoding board's MCU, we would need additional connections between the two boards and a way to keep the MCU powered while the EEG load is disconnected. If we decided to add a new one on the Power Board, it would take more space and it would make the design far more complicated.
 
 #### 4.2.2 Temperature regulation with MCU score
-
- 
 
 | Criterion | Weight (1-5) | score (1-5) |
 |---|---|---|
 | Meets performance requirements | 5 | 4 |
-| Safety and biosafety | 4 | 5 |
+| Safety and biosafety | 5 | 5 |
 | Cost | 3 | 3 |
 | Reproducibility and accessibility | 4 | 4 |
 | Complexity and space | 3 | 2 |
 | Maintainability and community support | 1 | 4 |
 | ---|---|---|
-|Total Score| 54 | max score : 90 | 
+| **Total Score** | | **70 / 105; 66.7%** | 
 
 #### 4.2.3 IC that measures the temperature
 
@@ -294,7 +291,6 @@ Score scale :
 - **Cons**:
 
 #### 4.2.4 IC that measures the temperature score
-
  
 
 | Criterion | Weight (1-5) | score (1-5) |
