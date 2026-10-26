@@ -1,7 +1,7 @@
 # Design Solution Definition: `EEG Processing Board V1.0`
 
-> **Project:** `N-Pulse (EEG headset)`
-> **Document ID:** `DSD-<NNN>-EEG-BOARD`
+> **Project:** `N-pulse – Wearable EEG System for Prosthetic Control`
+> **Document ID:** `DSD-EEG-BOARD-001`
 > **Version:** `0.1.0` · **Status:** `Draft`
 > **Project phase:** `Prototype` (first spin of the V1.0 hardware: schematic and layout finished, not yet fabricated)
 > **Last modified:** `2026-10-25`
@@ -28,10 +28,10 @@ Items still to be completed by the author are marked **[TO COMPLETE]**.
 | Role | Name | Affiliation / Handle | Date | Signature / Review link |
 |---|---|---|---|---|
 | Author(s) | Julian Rodriguez | EEG Board Designer / @Julian-R-R | 2026-10-25 | |
-| Reviewer (technical) | **[TO COMPLETE]** | | | |
-| Concurrence (SE Reviewer) | **[TO COMPLETE]** | | | |
-| Concurrence (Quality management reviewer) | **[TO COMPLETE]** | | | |
-| Approval (Project Manager) | **[TO COMPLETE]** | | | |
+| Reviewer (technical) | Maëlys Clerget | N-pulse — EEG Team Leader | @maelysclerget | | |
+| Concurrence (SE Reviewer) | Luca Seelbach | N-pulse — System Engineer Electronics | | |
+| Concurrence (Quality management reviewer) | Armelle Chritin | N-pulse — Quality Management | | |
+| Approval (Project Manager) | Elodie Dubois | N-pulse — Project Manager | | |
 
 > Note : Link approval to any relevant PR (Pull Request)
 > Affiliation/Handle : Role/ Username on Github
@@ -85,7 +85,7 @@ It covers:
 proposed (issue, RFC, pull request)? -->
 
 - **Document owner:** `Julian Ruiz Rodriguez (EEG board designer, @Julian-R-R)`
-- **Change authority:** **[TO COMPLETE: role / committee that approves changes]**
+- **Change authority:** `EEG Team Leader and System Engineer Electronics, subject to project review and approval procedures`
 - **Change process:** changes are proposed as a pull request against the board repository. The schematic is the single source of truth: BOM and fab outputs are regenerated from it.
 
 ### 1.3 Abbreviated terms and definitions
