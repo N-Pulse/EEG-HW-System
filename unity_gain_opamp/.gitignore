@@ -1,0 +1,28 @@
+# --- KiCad ---
+# Auto-generated backup archives (can be 100s of MB)
+*-backups/
+
+# Per-user local settings (window layout, last-opened, etc.)
+*.kicad_prl
+
+# Editor backups and autosaves
+*.kicad_sch-bak
+*.kicad_pcb-bak
+*-bak
+_autosave-*
+
+# Lock files from an open KiCad session
+*.lck
+~*.lck
+
+# Footprint/symbol cache, regenerated on demand
+fp-info-cache
+
+# --- Generated outputs ---
+*.net
+/gerbers/
+/production/
+/jlcpcb/
+
+# --- macOS ---
+.DS_Store

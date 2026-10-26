@@ -1,0 +1,11 @@
+FILE_TYPE = MULTI_PHYS_TABLE;
+
+PART '502494_0270'
+CLASS = IO
+{========================================================================================}
+:"MANUFACTURER_NAME", "MANUFACTURER_PART_NUMBER"= "PART_NUMBER", "JEDEC_TYPE", "PACK_TYPE", "MOUSER_PART_NUMBER", "MOUSER_PRICE/STOCK", "DESCRIPTION", "DATASHEET", "HEIGHT";
+{========================================================================================}
+ "Molex", "502494-0270" (!) = "", "5024940270", "Other", "538-502494-0270", "https://www.mouser.co.uk/ProductDetail/Molex/502494-0270?qs=sccQW%252BrT69bVmCdKb5dQ%2FA%3D%3D", "Headers & Wire Housings 2.0 W/B Sgl R/A Rec Asy 2Ckt Embs Tp Pkg", "https://componentsearchengine.com/Datasheets/1/502494-0270.pdf", "6.85 mm"
+END_PART
+
+END.

@@ -1,0 +1,9 @@
+Manufacturer=Texas Instruments
+PartNumber=TLV9044IPWR
+PartCategory=Integrated Circuit
+PackageCategory=Small Outline Packages
+PinCount=14
+Version=2.4
+Released=2021-09-06 11:48:10
+Downloaded=2026-09-25 11:30:41
+3D=Y

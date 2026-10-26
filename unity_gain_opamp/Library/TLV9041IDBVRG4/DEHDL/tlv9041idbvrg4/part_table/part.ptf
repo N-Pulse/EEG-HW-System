@@ -1,0 +1,11 @@
+FILE_TYPE = MULTI_PHYS_TABLE;
+
+PART 'TLV9041IDBVRG4'
+CLASS = IC
+{========================================================================================}
+:"MANUFACTURER_NAME", "MANUFACTURER_PART_NUMBER"= "PART_NUMBER", "JEDEC_TYPE", "PACK_TYPE", "MOUSER_PART_NUMBER", "MOUSER_PRICE/STOCK", "DESCRIPTION", "DATASHEET", "HEIGHT";
+{========================================================================================}
+ "Texas Instruments", "TLV9041IDBVRG4" (!) = "", "SOT95P280X145-5N", "SOT23 (5-Pin)", "", "", "Operational Amplifiers - Op Amps Single 5.5-V 350-k Hz ultra-low 1.2-V", "https://www.ti.com/lit/ds/symlink/tlv9041.pdf", "1.45 mm"
+END_PART
+
+END.
