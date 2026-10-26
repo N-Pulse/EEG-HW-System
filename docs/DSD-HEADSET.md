@@ -59,7 +59,7 @@ It covers:
 - the electrode layout and holder concept
 - the rear dial, chin strap, and removable padding
 - the mechanical integration of the power-board and decoding-board casings
-- the separate arm-mounted battery casing and strap
+- the integration of the battery casing on the headset
 - the previous concepts considered and the reasons for retaining the current hybrid concept.
 
 **Out of scope:** `EEG signal acquisition and processing (EEG Board DSD); EEG Power Board (Power Board DSD).`
@@ -99,22 +99,25 @@ It covers:
 
 ### 3.1 Solution overview
 
-The retained concept combines rigid and adaptable elements to provide a stable, adjustable, and comfortable EEG headset while maintaining reliable electrode–scalp contact. A rigid 3D-printed frame supports four removable transverse non-elastic bands that account for local head curvature and carry spring-loaded electrode holders. A rear adjustment dial, chin strap, and removable padding improve fit and stability. The headset also accommodates electrode-mounted buffer PCBs and two rear PETG enclosures for the power and EEG acquisition boards. The battery is carried separately in an arm-mounted casing to reduce the weight on the head.
+The retained concept combines rigid and adaptable elements to provide a stable, adjustable, and comfortable EEG headset while maintaining reliable electrode–scalp contact. A rigid 3D-printed frame supports four removable transverse non-elastic bands that account for local head curvature and carry spring-loaded electrode holders. A rear adjustment dial, chin strap, and removable padding improve fit and stability. The headset also accommodates electrode-mounted buffer PCBs and two rear PETG enclosures for the power and EEG acquisition boards. For the current prototype, the battery will be mounted on the headset. 
+
 
 ```mermaid
 flowchart TD
-    H[User's head] --> P[Removable padding]
-    P --> F[Rigid headset frame]
-    D[Rear adjustment dial] --> F
-    C[Chin strap] --> F
-    F --> B[Four transverse non-elastic bands]
-    B --> EH[Spring-loaded electrode holders]
-    EH --> E[16 SoftPulse Brush Long electrodes]
-    E --> S[Scalp contact]
-    F --> PB[Power-board casing]
-    F --> DB[Decoding-board casing]
-    BA[Battery in arm-mounted casing] --> PB
+    H["User head"] --> P["Removable padding"]
+    P --> F["Rigid headset frame"]
+    D["Rear adjustment dial"] --> F
+    C["Chin strap"] --> F
+    F --> B["Four transverse non-elastic bands"]
+    B --> EH["Spring-loaded electrode holders"]
+    EH --> E["16 SoftPulse Brush Long electrodes"]
+    E --> S["Scalp contact"]
+    F --> PB["Power board casing"]
+    F --> DB["Decoding board casing"]
+    F --> BA["Battery casing on headset"]
+    BA --> PB
 ```
+
 
 *Figure 3.1: Mechanical architecture and planned subsystem integration.*
 
@@ -160,10 +163,10 @@ flowchart TD
 
 #### 3.2.5 Electronics and battery integration
 
-- **Decision:** Mount two separate PETG enclosures on the back of the headset: one for the power board and one for the EEG decoding board. Carry the battery separately in an arm-mounted casing.
-- **Rationale:** Separate enclosures allow the two boards to be mounted and accessed independently, facilitating assembly and maintenance. Moving the battery off the headset reduces the weight carried by the head compared with the previous forehead-mounted battery concept.
-- **Requirements addressed:** NONE
-- **Consequences / limitations:** The current board enclosures are first prototypes intended to evaluate dimensions and mechanical integration. PCB supports, connector types, connector openings, fasteners, and cable-routing features must be adjusted when the complete board assemblies and connection requirements are known. The battery-casing strap, cable length, cable routing, and strain relief also require selection and validation.
+- **Decision:** Mount two separate PETG enclosures on the back of the headset: one for the power board and one for the EEG decoding board. Mount the battery on the headset in a separate casing.
+- **Rationale:** Separate enclosures allow the boards to be mounted and accessed independently, facilitating assembly and maintenance. Integrating the battery onto the headset provides a self-contained system without an external power cable.
+- **Requirements addressed:**
+- **Consequences / limitations:** The current board enclosures are first prototypes intended to evaluate dimensions and mechanical integration. PCB supports, connector openings, fasteners, and cable-routing features require validation against the complete board assemblies. The battery casing must be securely mounted, and its impact on weight distribution, comfort, and headset stability must be evaluated.
 
 #### 3.2.6 Material and manufacturing
 
@@ -209,7 +212,7 @@ A nominal PETG density of 1.27 g/cm³ gives a theoretical fully solid mass of ap
 | Power-board enclosure | 71 × 66 × 26 mm body; 67 × 62 × 24 mm cavity; 83 × 66 mm overall footprint with tabs; 28 mm closed height | First PETG prototype with 2 mm walls, floor, and lid. Validation requires the complete board assembly. |
 | EEG decoding board | 45 × 85 mm | PCB footprint defined. Complete board height and connector details are not yet known. |
 | Decoding-board enclosure | 91 × 51 × 26 mm body; 87 × 47 × 24 mm cavity; 103 × 51 mm overall footprint with tabs; 28 mm closed height | First PETG prototype with 2 mm walls, floor, and lid. Validation requires the complete board assembly. |
-| Battery | 69 × 37 × 19 mm | Battery casing designed; arm attachment, cable length, routing, and strain relief remain in development. |
+| Battery | 69 × 37 × 19 mm | Battery casing designed; integration onto the headset frame and mechanical attachment to be verified. |
 
 #### 3.3.4 Prototype enclosure details and measured masses
 
@@ -226,7 +229,7 @@ Each lid includes a 1.2 mm-thick, 2 mm-deep locating lip with 0.3 mm clearance p
 | Decoding-board enclosure and lid | 40.5 g |
 | **Measured PETG subtotal** | **153.5 g** |
 
-The subtotal excludes the electrodes, holders, springs, buffer PCBs, circuit boards, rear dial, chin strap, padding, fasteners, wiring, and the separately carried battery assembly. The final assembled headset mass therefore still requires measurement.
+The subtotal excludes the electrodes, holders, springs, buffer PCBs, circuit boards, rear dial, chin strap, padding, fasteners, wiring, battery, and battery casing. The final assembled headset mass therefore still requires measurement.
 
 ### 3.4 Functionally linked systems
 
@@ -235,7 +238,7 @@ The subtotal excludes the electrodes, holders, springs, buffer PCBs, circuit boa
 | EEG electrodes and buffer PCBs | Electrode holders, spring-loaded mechanism, socket connection, and cable routing to the EEG board | Electrode and buffer PCB footprints defined; connector approval, buffer thickness, mechanical fit, and spring movement require validation |
 | EEG decoding board | Rear enclosure, mounting mechanism, and connections to the electrode buffer PCBs | First enclosure designed; physical validation pending availability of the complete board |
 | Power board | Rear enclosure, mounting mechanism, and electrical connections to the EEG board and battery | First enclosure designed; physical validation pending availability of the complete board |
-| Battery casing and arm strap | Off-head battery retention, ventilation, arm attachment, and cable connection | Battery casing designed; arm strap planned for the week of 26 October 2026; cable length, routing, and strain relief remain open |
+| Battery and casing | Mechanical attachment to the headset frame, battery retention, and electrical connection to the Power Board | Battery casing designed; mounting, cable routing, and impact on headset stability remain to be validated |
 | User | Frame adjustment, chin strap, padding, and electrode–scalp contact | Initial frame fit tested; complete fit, comfort, stability, and contact validation pending integration of the remaining components |
 
 ### 3.5 Current prototype status
@@ -253,8 +256,7 @@ Completed or agreed work:
 - Defined four transverse non-elastic bands and eight frame slots.
 - Selected and ordered the rear adjustment dial and chin strap; dimensional validation is pending delivery and measurement.
 - Designed first-prototype PETG enclosures for the power board and EEG decoding board.
-- Designed an arm-mounted battery casing; the arm strap and cable integration remain in development.
----
+- Designed a battery casing for integration onto the headset; mechanical mounting and validation remain in progress.
 
 ## 4. Traded-off concepts
 
@@ -328,7 +330,22 @@ The DSI-24 uses a compact, flexible structure designed to accommodate different 
 - [Wearable Sensing DSI-24](https://wearablesensing.com/dsi-24/)
 - [Project notes on the DSI-24](https://app.notion.com/p/EEG-headset-information-1b2e4f65ffef8061a763f2f43d6580ea?pvs=21)
 
-### 4.5 Retained hybrid concept
+
+### 4.5 Battery placement trade-off
+
+Two battery placement options were considered:
+
+**Headset-mounted battery**
+- **Pros:** Self-contained system, shorter power cables, and no external battery attachment required.
+- **Cons:** Additional weight on the head, requiring careful consideration of weight distribution, comfort, and mechanical stability.
+
+**External battery armband**
+- **Pros:** Reduces the weight supported by the head.
+- **Cons:** Requires an external cable between the battery and headset, with additional constraints on cable routing, strain relief, and user movement.
+
+**Decision:** The headset-mounted battery was retained for the current prototype. The external armband was considered as an alternative but was not validated. The impact of the retained configuration on comfort, weight distribution, and mechanical stability remains to be evaluated.
+
+### 4.6 Retained hybrid concept
 
 The retained design combines the most useful features of the flexible and rigid concepts developed by the previous year's N-pulse team, while addressing their identified limitations. It aims to maintain consistent electrode positioning while accommodating differences in head shape and improving comfort.
 
@@ -341,8 +358,8 @@ The retained design combines the most useful features of the flexible and rigid 
 - Rear-dial adjustment to accommodate different head sizes
 - Chin strap and removable padding to improve stability and comfort
 - Separate rear casings for the Power Board and EEG decoding board
-- Battery carried separately in an armband to reduce head-supported weight
-
+- Battery mounted on the headset in a separate casing
+- 
 **Current limitations**
 
 - Complete headset assembly has not yet been built or validated
@@ -350,6 +367,7 @@ The retained design combines the most useful features of the flexible and rigid 
 - Spring stiffness and compression range still need to be determined to achieve the target electrode contact force
 - Mechanical integration of the rear dial, chin strap, padding, elastic bands, and electronics casings is still being finalized
 - Total assembled headset mass has not yet been measured
+- Battery mounting and its impact on weight distribution, comfort, and stability remain to be validated.
 
 ## 5. Quality management and compliance
 
@@ -431,7 +449,7 @@ explain which parts apply by choice (good practice) versus by obligation.
 | OI-04 | Manufacture and validate the first power-board and decoding-board enclosures. | Yassin Elaraby | Physical validation when the complete boards are available | Full electronics assembly cannot be mounted or validated |
 | OI-05 | Receive and measure the chin strap, then add suitable attachment slits to the CAD. | Yassin Elaraby | After delivery; shipping date unknown | Stability feature cannot be integrated |
 | OI-06 | Select removable padding and define its quantity, attachment method, thickness, and locations. | Yassin Elaraby | Before complete comfort evaluation | Complete comfort evaluation cannot be performed |
-| OI-07 | Select the battery-casing arm strap and define cable length, routing, and strain relief. | Yassin Elaraby | Arm-strap development during the week of 2026-10-26; cable decisions after system requirements are known | Off-head battery integration remains incomplete |
+| OI-07 | Integrate the battery casing onto the headset and validate its mechanical attachment, cable routing, weight distribution, and impact on comfort and stability. | Yassin Elaraby | Before complete headset validation | Battery integration and its impact on headset performance remain unvalidated |
 | OI-08 | Complete the assembly and verify comfort, stability, electrode positional repeatability, and final mass. | Yassin Elaraby | Initial frame fit tested; remaining tests after dependent components are completed | Complete prototype performance remains unvalidated |
 | OI-09 | Test frame thickness and PETG durability around the dial, slots, and enclosure mounts; consider PA12 only after geometry stabilizes. | Yassin Elaraby | Experimental testing after the complete prototype is assembled | Frame durability and final material remain uncertain |
 
@@ -497,4 +515,3 @@ The complete headset assembly will be added when it is ready for repository revi
 | Power-board enclosure and lid | Project CAD | 1 | First PETG prototype; measured mass 40.0 g; STEP files available in `headset/cad/` |
 | Decoding-board enclosure and lid | Project CAD | 1 | First PETG prototype; measured mass 40.5 g; STEP files available in `headset/cad/` |
 | Battery casing | Project CAD | 1 | Designed; ventilation and cable opening planned; STEP files available in `headset/cad/` |
-| Battery arm strap |  | 1 | Development planned for the week of 2026-10-26 |
