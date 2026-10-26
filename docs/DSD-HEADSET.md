@@ -99,9 +99,7 @@ It covers:
 
 ### 3.1 Solution overview
 
-The retained concept combines rigid and adaptable elements to provide a stable, adjustable, and comfortable EEG headset while maintaining reliable electrode–scalp contact. A rigid 3D-printed frame supports four removable transverse non-elastic bands that account for local head curvature and carry spring-loaded electrode holders. A rear adjustment dial, chin strap, and removable padding improve fit and stability.
-
-The headset also accommodates electrode-mounted buffer PCBs and two rear PETG enclosures for the power and EEG acquisition boards. The battery is carried separately in an arm-mounted casing to reduce the weight on the head.
+The retained concept combines rigid and adaptable elements to provide a stable, adjustable, and comfortable EEG headset while maintaining reliable electrode–scalp contact. A rigid 3D-printed frame supports four removable transverse non-elastic bands that account for local head curvature and carry spring-loaded electrode holders. A rear adjustment dial, chin strap, and removable padding improve fit and stability. The headset also accommodates electrode-mounted buffer PCBs and two rear PETG enclosures for the power and EEG acquisition boards. The battery is carried separately in an arm-mounted casing to reduce the weight on the head.
 
 ```mermaid
 flowchart TD
@@ -272,7 +270,10 @@ The comparison is qualitative at this stage. No numerical scores or weights have
 - integration of electronics and adjustment components
 - ease of prototyping and future modification.
 
+Particular attention was given to maintaining stable electrode positioning while accommodating variations in head shape and ensuring user comfort. The retained concept was selected based on the advantages and limitations identified during the development of the previous prototypes.
+
 ### 4.2 Flexible cap
+The flexible-cap concept was developed by the previous year's N-pulse team. It featured an adjustable frame and flexible electrode-support bands, allowing the electrode holders and rows to be repositioned.
 
 ![Previous flexible-cap prototype, view 1](../headset/EEG%20Headset/671fdeef-2f9c-4da3-81a9-b35787eb49b4.png)
 
@@ -281,19 +282,22 @@ The comparison is qualitative at this stage. No numerical scores or weights have
 **Pros**
 
 - Adjustable head frame
-- Flexible band for electrode holders
+- Flexible bands that accommodate variations in scalp shape
 - Simple design
 - Adjustable positions for electrode holders and rows
 
 **Cons**
 
-- Not very stable
-- Difficult to position consistently on the head
-- Electrode rails can move
+- Limited stability on the head
+- Difficult to achieve consistent electrode positioning between uses
+- Electrode rails can move, potentially affecting electrode contact and positional repeatability
 
-**Decision:** Not retained as the complete headset architecture. The useful idea of separate transverse electrode-support bands is carried into the new hybrid design.
+**Decision:** Not retained as the complete headset architecture due to limitations in stability and electrode-position repeatability. However, the flexible electrode-support bands are retained in the hybrid design to accommodate local variations in head shape.
+
 
 ### 4.3 Rigid cap
+
+The rigid-cap concept was also developed by the previous year's N-pulse team. It featured a rigid frame with predefined electrode positions, spring-loaded electrode holders, a rear adjustment dial, and a forehead-mounted battery.
 
 ![Previous rigid-cap prototype, view 1](../headset/EEG%20Headset/IMG_7442.jpg)
 
@@ -301,58 +305,51 @@ The comparison is qualitative at this stage. No numerical scores or weights have
 
 **Pros**
 
-- Known electrode positions
-- Spring-loaded electrode mounting system
-- Rear dial for size adjustment
-- Adapts to different head shapes through rear-dial adjustment
+- Fixed electrode positions, providing a more repeatable electrode layout
+- Spring-loaded electrode mounting system to accommodate local variations in scalp curvature
+- Rear dial for head-size adjustment
+- Rigid structure providing stable support for electrodes and electronic components
 
 **Cons**
 
-- Can create pressure points
-- Forehead-mounted battery makes the headset uncomfortable
-- Wires run across the complete structure
+- Limited adaptability to individual scalp curvature due to the rigid frame
+- Rigid frame can create localized pressure points, reducing comfort
+- Forehead-mounted battery increases the weight supported by the head and may cause discomfort
+- Wiring across the frame complicates cable routing and may introduce mechanical constraints during adjustment
 
-**Decision:** Not retained unchanged. The rigid positional reference, rear adjustment, and spring-loaded holders are carried into the new hybrid design, while the battery is moved off the head.
+**Decision:** Not retained unchanged due to its limitations in comfort and weight distribution. The rigid frame, rear adjustment mechanism, and spring-loaded electrode holders are retained in the hybrid design, while elastic bands provide additional adaptability and the battery is moved off the head.
 
 ### 4.4 Wearable Sensing DSI-24 concept
 
-The DSI-24 uses a compact umbrella-like structure that can adapt to different head shapes. It was considered as design inspiration but was not retained because its structure does not match the required electrode arrangement.
+The DSI-24 uses a compact, flexible structure designed to accommodate different head shapes. It was considered as design inspiration because of its adaptability and electrode-support mechanism. However, its existing structure and electrode distribution do not directly match the selected 16-electrode montage. Adapting this concept would therefore require substantial modifications to the electrode-support geometry.
+
+**Decision:** Not retained as the headset architecture, but considered as a reference for mechanical adaptability and electrode positioning.
 
 - [Wearable Sensing DSI-24](https://wearablesensing.com/dsi-24/)
 - [Project notes on the DSI-24](https://app.notion.com/p/EEG-headset-information-1b2e4f65ffef8061a763f2f43d6580ea?pvs=21)
 
 ### 4.5 Retained hybrid concept
 
-The retained design combines the most useful features of the previous flexible and rigid concepts.
+The retained design combines the most useful features of the flexible and rigid concepts developed by the previous year's N-pulse team, while addressing their identified limitations. It aims to maintain consistent electrode positioning while accommodating differences in head shape and improving comfort.
 
 **Retained features**
 
-- a rigid frame for positional reference and component mounting
-- transverse non-elastic bands to accommodate local head curvature
-- fixed band slots to reduce row movement
-- spring-loaded electrode holders
-- rear-dial adjustment
-- chin strap and removable padding
-- separate rear board casings
-- battery carried away from the head.
+- Rigid frame for electrode positioning and component mounting
+- Four transverse elastic bands to accommodate local variations in head shape
+- Fixed band slots to limit electrode-row movement
+- Spring-loaded electrode holders to maintain electrode–scalp contact
+- Rear-dial adjustment to accommodate different head sizes
+- Chin strap and removable padding to improve stability and comfort
+- Separate rear casings for the Power Board and EEG decoding board
+- Battery carried separately in an armband to reduce head-supported weight
 
 **Current limitations**
 
-- complete assembly is not yet available
-- the initial frame fit has been tested, but the full adjustment range requires validation after rear-dial integration
-- electrode repeatability, complete comfort, and stability require testing after the remaining components are integrated
-- the rear dial and chin strap require dimensional validation after delivery
-- the connector, band, enclosure-interface, arm-strap, cable-routing, and spring details remain in progress
-- the current printed frame and two enclosure assemblies have a measured PETG subtotal of 153.5 g; final assembled headset mass still requires measurement.
-
-### 4.6 Trade-off summary
-
-| Option | Retained | Main conclusion |
-|---|---|---|
-| Flexible cap | No | Adaptable and simple, but insufficiently stable and repeatable |
-| Rigid cap | No | Stable positional reference, but pressure points and forehead battery reduce comfort |
-| DSI-24-inspired structure | No | Adaptable and compact, but incompatible with the required electrode arrangement |
-| Current hybrid concept | Yes | Best current trade-off between positional reference, local adaptability, modularity, and planned comfort improvements |
+- Complete headset assembly has not yet been built or validated
+- Effective adjustment range, electrode-position repeatability, comfort, and stability remain to be tested
+- Spring stiffness and compression range still need to be determined to achieve the target electrode contact force
+- Mechanical integration of the rear dial, chin strap, padding, elastic bands, and electronics casings is still being finalized
+- Total assembled headset mass has not yet been measured
 
 ## 5. Quality management and compliance
 
