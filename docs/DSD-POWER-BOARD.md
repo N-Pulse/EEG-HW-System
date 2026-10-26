@@ -145,7 +145,7 @@ flowchart LR
     A[Battery Input] <--> B[Charging IC]
     C[USB-C port] --> B
     A --> D[Temperature Management]
-    B --> E[Buck (7.4->6.1V)]
+    B --> E[Buck (7.4-6.1V)]
     E --> F[LDO (6.1-5.7V)]
     F --> G[Load + Switch]
     D --> G
