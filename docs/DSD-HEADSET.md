@@ -4,7 +4,7 @@
 > **Document ID:** `DSD-EEG-HD-001`
 > **Version:** `0.1.0` **Status:** `Draft`
 > **Project phase:** `pre-System Design Review`
-> **Last modified:** `2026-10-25`
+> **Last modified:** `2026-10-26`
 > **Repository path:** `docs/DSD-HEADSET.md`
 
 ---
@@ -15,8 +15,8 @@
 
 | Role | Name | Affiliation / Handle | Date | Signature / Review link |
 |---|---|---|---|---|
-| Author(s) | Yassin Elaraby | Headset Designer | @Yassin-elaraby | | |
-| Reviewer (technical) | Maëlys Clerget | N-pulse — EEG Team Leader | @maelysclerget | | |
+| Author(s) | Yassin Elaraby | Headset Designer | @Yassin-elaraby | |
+| Reviewer (technical) | Maëlys Clerget | N-pulse — EEG Team Leader | @maelysclerget | |
 | Concurrence (SE Reviewer) | Luca Seelbach & Santiago Ramos | N-pulse — System Engineers | | |
 | Concurrence (Quality management reviewer) | Armelle Chritin | N-pulse — Quality Management | | |
 | Approval (Project Manager) | Elodie Dubois | N-pulse — Project Manager | | |
@@ -28,6 +28,7 @@
 | Version | Date | Author(s) | Main changes | PR / Commit |
 |---|---|---|---|---|
 | | 2026-10-24 | Yassin Elaraby | Initial headset DSD draft | |
+| 0.1.0 | 2026-10-26 | Yassin Elaraby | Addressed review comments and documented the current prototype design and measured masses | PR #2 |
 
 ---
 
@@ -54,19 +55,19 @@ This Design Solution Definition (DSD) is at a `Prototype` stage validated on `<d
 It covers:
 
 - the headset frame and adjustment concept
-- the elastic electrode bands and their frame interfaces
+- the non-elastic electrode bands and their frame interfaces
 - the electrode layout and holder concept
 - the rear dial, chin strap, and removable padding
 - the mechanical integration of the power-board and decoding-board casings
-- the separate battery armband
+- the separate arm-mounted battery casing and strap
 - the previous concepts considered and the reasons for retaining the current hybrid concept.
 
 **Out of scope:** `EEG signal acquisition and processing (EEG Board DSD); EEG Power Board (Power Board DSD).`
 
 ### 1.2 Responsibility and change authority
 
-- **Document owner:** `Yassin Elaraby, Headset Designer / @Yassin-elaraby` <!-- Who is responsible to keep this document up to date ? <!-- Who is responsible to keep this document up to date ? --> 
-- **Change authority:** `EEG Team Leader and System Engineer Electronics, subject to project review and approval procedures` <!-- What is the role/responsibility of the person -->
+- **Document owner:** `Yassin Elaraby, Headset Designer / @Yassin-elaraby`
+- **Change authority:** `EEG Team Leader and System Engineer Electronics, subject to project review and approval procedures`
 
 ### 1.3 Abbreviated terms and definitions
 
@@ -78,7 +79,8 @@ It covers:
 | PA12 | Polyamide 12 (Nylon 12) |
 | PCB | Printed circuit board |
 | STEP | Standard for the Exchange of Product model data |
-| TBC | To be confirmed |
+| REF | Reference electrode used as the reference potential for the EEG measurement channels |
+| BIAS | Driven-bias electrode used to control common-mode voltage and improve common-mode noise rejection |
 
 ## 2. Requirements and traceability
 
@@ -97,7 +99,9 @@ It covers:
 
 ### 3.1 Solution overview
 
-The retained concept combines rigid and flexible elements to provide a stable, adjustable, and comfortable EEG headset while maintaining reliable electrode–scalp contact. A rigid 3D-printed frame supports four removable transverse elastic bands that adapt to different head shapes and carry spring-loaded electrode holders. A rear adjustment dial, chin strap, and removable padding improve fit and stability. The headset also accommodates electrode-mounted buffer PCBs and two rear casings for the power and EEG acquisition boards, while the battery is carried separately in an armband to reduce the weight on the head.
+The retained concept combines rigid and adaptable elements to provide a stable, adjustable, and comfortable EEG headset while maintaining reliable electrode–scalp contact. A rigid 3D-printed frame supports four removable transverse non-elastic bands that account for local head curvature and carry spring-loaded electrode holders. A rear adjustment dial, chin strap, and removable padding improve fit and stability.
+
+The headset also accommodates electrode-mounted buffer PCBs and two rear PETG enclosures for the power and EEG acquisition boards. The battery is carried separately in an arm-mounted casing to reduce the weight on the head.
 
 ```mermaid
 flowchart TD
@@ -105,13 +109,13 @@ flowchart TD
     P --> F[Rigid headset frame]
     D[Rear adjustment dial] --> F
     C[Chin strap] --> F
-    F --> B[Four transverse elastic bands]
+    F --> B[Four transverse non-elastic bands]
     B --> EH[Spring-loaded electrode holders]
     EH --> E[16 SoftPulse Brush Long electrodes]
     E --> S[Scalp contact]
     F --> PB[Power-board casing]
     F --> DB[Decoding-board casing]
-    BA[Battery in separate armband] --> PB
+    BA[Battery in arm-mounted casing] --> PB
 ```
 
 *Figure 3.1: Mechanical architecture and planned subsystem integration.*
@@ -122,23 +126,22 @@ flowchart TD
 
 - **Decision:** Use a rigid 3D-printed frame, opened at the rear into a horseshoe form and bridged by a rear adjustment dial.
 - **Rationale:** The rigid frame provides a stable reference for the electrode bands and electronics, limiting unwanted displacement of the electrodes during use. Compared with a fully flexible frame, it is intended to improve positional repeatability, while the rear adjustment dial allows the headset to accommodate different head sizes without requiring multiple frame dimensions.
-- **Requirements addressed:** 
-- **Consequences / limitations:** The rear dial provides 90 mm of mechanism travel (±45 mm), but the effective head-size adjustment range still needs to be verified once integrated into the frame. The mechanical attachment and frame resistance during repeated adjustment also require validation, particularly due to the risk of PETG cracking.
+- **Design objective addressed:** Adaptability to different head sizes through the rear-adjustment mechanism. This objective does not yet have a formally assigned requirement ID.
+- **Consequences / limitations:** The rear dial provides 90 mm of mechanism travel, or ±45 mm from its midpoint. Dimensional validation is pending until the purchased mechanism is delivered and measured. Its mounting geometry, effective headset adjustment range, attachment loads, and effect on frame deformation must then be validated. PETG cracking during adjustment remains a known concern.
 
-#### 3.2.2 Transverse elastic electrode bands
+#### 3.2.2 Transverse non-elastic electrode bands
 
-- **Decision:** Use four transverse elastic bands to support the 16 electrodes, including the measurement, REF, and BIAS electrodes. The frame will have four physical band slots on each side, eight slots in total.
-- **Rationale:** Elastic bands can accommodate differences in scalp curvature and help maintain electrode contact without requiring a fully flexible headset structure. The fixed frame slots constrain the position of each band, reducing unwanted movement of the electrode rows and improving positional repeatability compared with the previous flexible design. The removable bands also facilitate assembly, adjustment, and replacement.
+- **Decision:** Use four transverse non-elastic bands to support the 16 electrodes, including the measurement, REF, and BIAS electrodes. The frame will have four physical band slots on each side, eight slots in total.
+- **Rationale:** The bands account for local head curvature while the rigid frame provides the main positional reference. Fixed frame slots constrain the position of each band, reducing unwanted movement of the electrode rows compared with the previous flexible design. Removable bands also facilitate assembly, adjustment, and replacement.
 - **Requirements addressed:** 
-- **Consequences / limitations:** Band material, width, thickness, stretch, and final slot dimensions are not yet selected. Slot locations and clearances have not been validated.
+- **Consequences / limitations:** Four bands are required, but their product, material, width, thickness, and supplier have not yet been selected. Selection and finalization of the eight slot dimensions and locations are planned for the week of 26 October 2026.
 
 #### 3.2.3 Electrode layout and holders
 
-- **Decision:** Use 16 Datwyler SoftPulse Brush Long dry electrodes at the confirmed 10–10 positions. Each electrode holder is designed to fit within a maximum external footprint of 28 × 28 mm, including its attachment features. The electrode is connected to its buffer PCB through the electrode connector, and both components are mounted together inside a spring-loaded carrier. 
-The electrode is connected to its buffer PCB through the electrode connector, and both components are mounted together in a spring-loaded carrier, allowing them to move as a single unit during compression.
-- **Rationale:** The selected electrode layout concentrates the measurement electrodes around the sensorimotor regions relevant to the intended application, while including dedicated reference and BIAS electrodes. The spring-loaded carriers are intended to compensate for local variations in scalp curvature and hair thickness, helping maintain electrode–scalp contact while limiting excessive pressure. Integrating the buffer PCB directly with the electrode also avoids an additional cable between the electrode and its buffer, reducing the length of the unbuffered signal path and its susceptibility to noise and motion artifacts.
+- **Decision:** Use 16 Datwyler SoftPulse Brush Long dry electrodes at the confirmed 10–10 positions. Each electrode holder is intended to fit within a maximum external footprint of 28 × 28 mm, including its attachment features. The proposed electrode connection uses a Rome Fastener No. 11 segmented spring socket. The electrode connects to the socket, which connects directly to the buffer. The socket and buffer are contained within the spring-loaded holder and move with the electrode during compression.
+- **Rationale:** The selected electrode layout concentrates the measurement electrodes around the sensorimotor regions relevant to the intended application while including dedicated REF and BIAS electrodes. Spring-loaded holders are intended to compensate for local differences in scalp curvature and hair thickness, maintaining electrode–scalp contact while limiting excessive pressure. Integrating the buffer directly with the electrode reduces the length of the unbuffered signal path and its susceptibility to noise and motion artefacts.
 - **Requirements addressed:** EEG-002
-- **Consequences / limitations:** The spring stiffness and compression range still need to be determined to achieve the target electrode contact force. The proposed 28 × 28 mm holder footprint, accommodating the 13 mm electrode and 22 mm buffer PCB, must be verified to ensure that all 16 holders fit in their designated positions without interfering with each other.
+- **Consequences / limitations:** Use of the proposed socket still requires approval. Final holder height, spring type, stiffness, preload, travel, and internal clearances cannot be finalized until the connector is approved and the buffer thickness is known. The 28 × 28 mm target footprint will be retained where possible. The holder design is expected to be completed within a few days after connector approval and confirmation of the buffer thickness.
   
 | Function | Electrode positions | Count |
 |---|---|---:|
@@ -151,25 +154,25 @@ The electrode is connected to its buffer PCB through the electrode connector, an
 
 #### 3.2.4 Stability and comfort features
 
-- **Decision:** Add a chin strap and removable internal padding, with the exact products and attachment geometry to be confirmed.
+- **Decision:** Add a chin strap and removable internal padding.
 - **Rationale:** The chin strap is intended to limit headset movement during use, helping maintain stable electrode positioning and contact with the scalp. Removable padding allows local fit and comfort adjustments by reducing pressure points between the rigid frame and the head.
 - **Requirements addressed:** 
-- **Consequences / limitations:** The chin-strap attachment geometry will be finalized once the purchased strap has been measured. The padding material, thickness, and attachment positions still need to be selected. The headset's comfort and stability have not yet been validated through user testing.
+- **Consequences / limitations:** Dimensional validation of the chin strap is pending until the purchased strap is delivered and measured. Its attachment-slit dimensions and locations will then be finalized in the headset CAD. Lumos Ultra helmet padding is being considered; its quantity, attachment method, thickness, and positions remain to be finalized. The headset's complete comfort and stability have not yet been validated.
 
 
 #### 3.2.5 Electronics and battery integration
 
-- **Decision:** Mount two separate casings on the back of the headset: one for the power board and one for the EEG decoding board. Carry the battery separately in a running-style armband.
-- **Rationale:** Separate casings allow the two boards to be mounted and accessed independently, facilitating assembly and maintenance. Moving the battery off the headset reduces the weight carried by the head compared with the previous forehead-mounted battery concept, improving weight distribution and potentially reducing discomfort during prolonged use.
+- **Decision:** Mount two separate PETG enclosures on the back of the headset: one for the power board and one for the EEG decoding board. Carry the battery separately in an arm-mounted casing.
+- **Rationale:** Separate enclosures allow the two boards to be mounted and accessed independently, facilitating assembly and maintenance. Moving the battery off the headset reduces the weight carried by the head compared with the previous forehead-mounted battery concept.
 - **Requirements addressed:** NONE
-- **Consequences / limitations:** Casing dimensions and attachment mechanisms are still being finalized. Cable routing and strain relief between the electronics, electrodes, and external battery must be verified to ensure that cable movement does not compromise headset stability. The selected armband must also be checked for compatibility with the battery dimensions and weight.
+- **Consequences / limitations:** The current board enclosures are first prototypes intended to evaluate dimensions and mechanical integration. PCB supports, connector types, connector openings, fasteners, and cable-routing features must be adjusted when the complete board assemblies and connection requirements are known. The battery-casing strap, cable length, cable routing, and strain relief also require selection and validation.
 
 #### 3.2.6 Material and manufacturing
 
-- **Decision:** Use 3D-printed PETG for the current headset-frame prototypes.
+- **Decision:** Use 3D-printed PETG for the current headset-frame and enclosure prototypes.
 - **Rationale:** PETG enables low-cost and rapid design iterations during prototyping. Its toughness and flexibility compared with more brittle printing materials make it suitable for evaluating the adjustable frame geometry and mechanical attachments.
 - **Requirements addressed:** NONE
-- **Consequences / limitations:** PETG cracking during adjustment remains a concern and must be evaluated experimentally. Final material selection is not complete. SLS PA12 may be investigated for a later prototype, but it is not the selected production material. Frame thinning and local reinforcement also remain future investigations.
+- **Consequences / limitations:** No mechanical durability testing has yet been performed. The PETG prototype will be tested experimentally through headset adjustment, assembly, and repeated-use testing after the complete prototype is available. Particular attention will be given to the rear-dial interface, band slots, and enclosure mounts. PA12 remains a possible future material if PETG testing identifies durability limitations after the geometry has stabilized.
 
 ### 3.3 Current dimensions
 
@@ -179,8 +182,8 @@ The electrode is connected to its buffer PCB through the electrode connector, an
 |---|---:|---|
 | Front-to-back over the scalp | 370 mm | Measured; anatomical landmarks not documented |
 | Ear-to-ear over the scalp | 375 mm | Measured; anatomical landmarks not documented |
-| Head circumference | Approximately 575–580 mm | Initial reference; headset fit range not yet validated |
-| Rear-dial mechanism travel | 90 mm total (±45 mm) | Mechanism travel defined; effective headset adjustment range not yet validated |
+| Head circumference | Approximately 575–580 mm | Initial reference; initial frame fit has been tested, but the complete adjustment range requires validation |
+| Rear-dial mechanism travel | 90 mm total (±45 mm) | Mechanism travel defined; dimensional validation pending after delivery and measurement |
 
 #### 3.3.2 Current frame STEP model
 
@@ -193,42 +196,66 @@ The values below were measured from the current [`frame design.step`](../headset
 | Maximum vertical extent | 50.47 mm |
 | Inner perimeter at the flat top | 590.83 mm |
 | Outer perimeter at the flat top | 652.26 mm |
-| Solid material volume | 146.87 cm³ |
+| Recorded CAD volume | 146.87 cm³ |
+
+A nominal PETG density of 1.27 g/cm³ gives a theoretical fully solid mass of approximately 186.5 g for the recorded CAD volume. The current frame was printed with 10% infill and has a measured mass of **73 g**. The infill percentage cannot be applied directly to the fully solid mass because the outer walls, top and bottom layers, and thin structural features are printed as solid material. The measured value is therefore used as the current mass reference.
 
 #### 3.3.3 Known component envelopes
 
 | Component | Current dimensions | Notes |
 |---|---:|---|
-| Complete electrode holder | 28 × 28 mm | Target external footprint, including attachment features. Final height and spring compression range to be determined based on the target contact force. |
-| Datwyler SoftPulse Brush Long electrode | 13 mm diameter | Selected electrode. Verify mechanical fit and secure attachment to the holder through an assembly test. |
-| Buffer PCB | 22 mm diameter | Moves with the electrode in the spring-loaded holder.|
-| Power board | 65 × 60 mm | PCB dimensions defined; casing dimensions to be finalized based on board height, connectors, wall thickness, and mounting features. Verify using CAD assembly checks and a physical fit test. |
-| EEG decoding board | 45 × 85 mm | PCB dimensions defined; casing dimensions to be finalized based on board height, connectors, wall thickness, and mounting features. Verify using CAD assembly checks and a physical fit test. |
-| Battery | 69 × 37 × 19 mm | Battery dimensions defined; verify fit and retention in the selected armband through a physical fit and movement test, including cable strain relief. |
+| Complete electrode holder | Target footprint: 28 × 28 mm | Includes attachment features. Final height and spring compression range require the connector decision and buffer thickness. |
+| Datwyler SoftPulse Brush Long electrode | 13 mm diameter | Selected electrode; mechanical fit requires an assembly test. |
+| Buffer PCB | 22 mm diameter | Intended to move with the electrode in the spring-loaded holder. Thickness still required. |
+| Power board | 65 × 60 mm | PCB footprint defined. Complete board height and connector details are not yet known. |
+| Power-board enclosure | 71 × 66 × 26 mm body; 67 × 62 × 24 mm cavity; 83 × 66 mm overall footprint with tabs; 28 mm closed height | First PETG prototype with 2 mm walls, floor, and lid. Validation requires the complete board assembly. |
+| EEG decoding board | 45 × 85 mm | PCB footprint defined. Complete board height and connector details are not yet known. |
+| Decoding-board enclosure | 91 × 51 × 26 mm body; 87 × 47 × 24 mm cavity; 103 × 51 mm overall footprint with tabs; 28 mm closed height | First PETG prototype with 2 mm walls, floor, and lid. Validation requires the complete board assembly. |
+| Battery | 69 × 37 × 19 mm | Battery casing designed; arm attachment, cable length, routing, and strain relief remain in development. |
+
+#### 3.3.4 Prototype enclosure details and measured masses
+
+Both prototype electronics enclosures use PETG with 2 mm walls, floor, and lid. The power-board enclosure measures 71 × 66 × 26 mm and contains a 67 × 62 × 24 mm cavity. The decoding-board enclosure measures 91 × 51 × 26 mm and contains an 87 × 47 × 24 mm cavity.
+
+Each enclosure has two external mounting tabs measuring 8 × 8 × 26 mm. The lids are secured using M1.6 × 5 mm screws and M1.6 × 2.5 mm heat-set inserts installed in Ø2.2 × 4 mm-deep holes. The closed enclosure height is 28 mm, excluding screw heads. Overall footprints including the tabs are 83 × 66 mm for the power-board enclosure and 103 × 51 mm for the decoding-board enclosure.
+
+Each lid includes a 1.2 mm-thick, 2 mm-deep locating lip with 0.3 mm clearance per side. PCB supports and connector openings remain provisional and require validation against the complete board assemblies.
+
+| Printed PETG part | Measured mass |
+|---|---:|
+| Headset frame, printed at 10% infill | 73.0 g |
+| Power-board enclosure and lid | 40.0 g |
+| Decoding-board enclosure and lid | 40.5 g |
+| **Measured PETG subtotal** | **153.5 g** |
+
+The subtotal excludes the electrodes, holders, springs, buffer PCBs, circuit boards, rear dial, chin strap, padding, fasteners, wiring, and the separately carried battery assembly. The final assembled headset mass therefore still requires measurement.
 
 ### 3.4 Functionally linked systems
 
 | Linked system | Headset interface | Integration status |
 |---|---|---|
-| EEG electrodes and buffer PCBs | Electrode holders, spring-loaded mechanism, mechanical attachment, and cable routing to the EEG board | Electrode and buffer PCB dimensions defined; mechanical fit and spring movement to be verified |
-| EEG decoding board | Rear casing, mounting mechanism, and connections to the electrode buffer PCBs | PCB dimensions defined; casing integration and mounting to be verified |
-| Power board | Rear casing, mounting mechanism, and electrical connections to the EEG board and battery | PCB dimensions defined; casing integration and mounting to be verified |
-| Battery and armband | Off-head battery attachment and cable connection to the headset electronics | Armband concept selected; battery retention and cable strain relief to be verified |
-| User | Frame adjustment, chin strap, padding, and electrode–scalp contact | Adjustment mechanism defined; fit, comfort, and electrode contact force to be validated |
+| EEG electrodes and buffer PCBs | Electrode holders, spring-loaded mechanism, socket connection, and cable routing to the EEG board | Electrode and buffer PCB footprints defined; connector approval, buffer thickness, mechanical fit, and spring movement require validation |
+| EEG decoding board | Rear enclosure, mounting mechanism, and connections to the electrode buffer PCBs | First enclosure designed; physical validation pending availability of the complete board |
+| Power board | Rear enclosure, mounting mechanism, and electrical connections to the EEG board and battery | First enclosure designed; physical validation pending availability of the complete board |
+| Battery casing and arm strap | Off-head battery retention, ventilation, arm attachment, and cable connection | Battery casing designed; arm strap planned for the week of 26 October 2026; cable length, routing, and strain relief remain open |
+| User | Frame adjustment, chin strap, padding, and electrode–scalp contact | Initial frame fit tested; complete fit, comfort, stability, and contact validation pending integration of the remaining components |
 
 ### 3.5 Current prototype status
 
 Completed or agreed work:
 
 - Compared the previous flexible and rigid headset concepts.
-- Retained the hybrid rigid-frame and elastic-band concept.
+- Retained the hybrid rigid-frame and transverse-band concept.
 - Created the current Fusion 360 frame model and exported it as STEP.
+- Performed an initial fit test of the headset frame.
 - Defined the 16 electrode positions: 14 measurement electrodes, one REF (FCz), and one BIAS (AFz).
 - Selected the Datwyler SoftPulse Brush Long dry electrodes.
 - Selected the spring-loaded electrode-holder concept and defined a target external footprint of 28 × 28 mm.
-- Defined four transverse elastic bands and eight frame slots.
-- Selected the rear adjustment dial and chin strap for mechanical integration.
-- Decided to use two separate rear casings for the Power Board and EEG decoding board, with the battery carried separately in an armband.
+- Proposed the Rome Fastener No. 11 socket for the electrode-to-buffer connection; approval remains pending.
+- Defined four transverse non-elastic bands and eight frame slots.
+- Selected and ordered the rear adjustment dial and chin strap; dimensional validation is pending delivery and measurement.
+- Designed first-prototype PETG enclosures for the power board and EEG decoding board.
+- Designed an arm-mounted battery casing; the arm strap and cable integration remain in development.
 ---
 
 ## 4. Traded-off concepts
@@ -264,7 +291,7 @@ The comparison is qualitative at this stage. No numerical scores or weights have
 - Difficult to position consistently on the head
 - Electrode rails can move
 
-**Decision:** Not retained as the complete headset architecture. The useful idea of flexible electrode-support bands is carried into the new hybrid design.
+**Decision:** Not retained as the complete headset architecture. The useful idea of separate transverse electrode-support bands is carried into the new hybrid design.
 
 ### 4.3 Rigid cap
 
@@ -301,7 +328,7 @@ The retained design combines the most useful features of the previous flexible a
 **Retained features**
 
 - a rigid frame for positional reference and component mounting
-- transverse elastic bands to adapt locally to head shape
+- transverse non-elastic bands to accommodate local head curvature
 - fixed band slots to reduce row movement
 - spring-loaded electrode holders
 - rear-dial adjustment
@@ -312,9 +339,11 @@ The retained design combines the most useful features of the previous flexible a
 **Current limitations**
 
 - complete assembly is not yet available
-- fit range, electrode repeatability, comfort, and stability are not validated
-- rear-dial, strap, padding, casing, band-slot, and spring details remain in progress
-- total mass is TBC.
+- the initial frame fit has been tested, but the full adjustment range requires validation after rear-dial integration
+- electrode repeatability, complete comfort, and stability require testing after the remaining components are integrated
+- the rear dial and chin strap require dimensional validation after delivery
+- the connector, band, enclosure-interface, arm-strap, cable-routing, and spring details remain in progress
+- the current printed frame and two enclosure assemblies have a measured PETG subtotal of 153.5 g; final assembled headset mass still requires measurement.
 
 ### 4.6 Trade-off summary
 
@@ -397,17 +426,17 @@ explain which parts apply by choice (good practice) versus by obligation.
 
 ## 7. Open issues and future work
 
-| ID | Issue / TBD / TBC | Owner | Due | Impact if unresolved |
+| ID | Open issue / validation required | Owner | Target date or milestone | Impact if unresolved |
 |---|---|---|---|---|
-| OI-01 | Receive and measure the rear dial, then design and validate its frame attachments and rear opening. | Yassin Elaraby | TBC | Fit range and frame loads cannot be validated |
-| OI-02 | Confirm electrode-buffer connection details and select the holder spring, preload, travel, and total height. | Yassin Elaraby | TBC | Electrode contact and holder assembly remain incomplete |
-| OI-03 | Select the elastic bands and finalize the eight slot dimensions and locations. | Yassin Elaraby | TBC | Electrode rows cannot be assembled repeatably |
-| OI-04 | Complete and integrate the power-board and decoding-board casings on the rear frame. | Yassin Elaraby | TBC | Full electronics assembly cannot be mounted |
-| OI-05 | Receive and measure the chin strap, then add suitable attachment slits to the CAD. | Yassin Elaraby | TBC | Stability feature cannot be integrated |
-| OI-06 | Select removable padding and define its attachment locations and thicknesses. | Yassin Elaraby | TBC | Comfort and fit cannot be evaluated completely |
-| OI-07 | Select the battery armband and define safe cable routing and strain relief. | Yassin Elaraby | TBC | Off-head battery integration remains incomplete |
-| OI-08 | Complete the assembly and verify fit, comfort, stability, electrode positional repeatability, and total mass. | Yassin Elaraby | TBC | Prototype performance remains unvalidated |
-| OI-09 | Investigate frame thickness and PETG durability around the dial, slots, and casing mounts; consider PA12 only after geometry stabilizes. | Yassin Elaraby | TBC | Frame durability and final material remain uncertain |
+| OI-01 | Receive and measure the rear dial, then design and validate its frame attachments and rear opening. | Yassin Elaraby | After delivery; shipping date unknown | Fit range and frame loads cannot be validated |
+| OI-02 | Approve the proposed electrode socket, confirm the buffer thickness, and select the holder spring, preload, travel, and total height. | Yassin Elaraby | Holder design within a few days after connector approval and confirmation of buffer thickness | Electrode contact and holder assembly remain incomplete |
+| OI-03 | Select the four non-elastic bands and finalize the eight slot dimensions and locations. | Yassin Elaraby | Week of 2026-10-26 | Electrode rows cannot be assembled repeatably |
+| OI-04 | Manufacture and validate the first power-board and decoding-board enclosures. | Yassin Elaraby | Physical validation when the complete boards are available | Full electronics assembly cannot be mounted or validated |
+| OI-05 | Receive and measure the chin strap, then add suitable attachment slits to the CAD. | Yassin Elaraby | After delivery; shipping date unknown | Stability feature cannot be integrated |
+| OI-06 | Select removable padding and define its quantity, attachment method, thickness, and locations. | Yassin Elaraby | Before complete comfort evaluation | Complete comfort evaluation cannot be performed |
+| OI-07 | Select the battery-casing arm strap and define cable length, routing, and strain relief. | Yassin Elaraby | Arm-strap development during the week of 2026-10-26; cable decisions after system requirements are known | Off-head battery integration remains incomplete |
+| OI-08 | Complete the assembly and verify comfort, stability, electrode positional repeatability, and final mass. | Yassin Elaraby | Initial frame fit tested; remaining tests after dependent components are completed | Complete prototype performance remains unvalidated |
+| OI-09 | Test frame thickness and PETG durability around the dial, slots, and enclosure mounts; consider PA12 only after geometry stabilizes. | Yassin Elaraby | Experimental testing after the complete prototype is assembled | Frame durability and final material remain uncertain |
 
 ---
 
@@ -422,6 +451,9 @@ explain which parts apply by choice (good practice) versus by obligation.
 7. [Fiedler et al., “Flower electrodes for comfortable dry electroencephalography”](https://www.researchgate.net/publication/374418531_Flower_electrodes_for_comfortable_dry_electroencephalography)
 8. [Portillo-Lara et al., “Mind the gap: State-of-the-art technologies and applications for EEG-based brain–computer interfaces”](https://www.researchgate.net/publication/353384603_Mind_the_gap_State-of-the-art_technologies_and_applications_for_EEG-based_brain-computer_interfaces)
 9. [Chen et al., “Neural Correlates of Motor Recovery after Robot-Assisted Training in Chronic Stroke: A Multimodal Neuroimaging Study”](https://www.researchgate.net/publication/352291862_Neural_Correlates_of_Motor_Recovery_after_Robot-Assisted_Training_in_Chronic_Stroke_A_Multimodal_Neuroimaging_Study)
+10. [Rome Fastener No. 11 segmented spring socket](https://www.romefast.com/Snap-Fasteners-Segmented-Spring-Five-Sixteenths-Inch.asp)
+11. [Lumos Ultra helmet padding](https://www.galaxus.ch/en/s3/product/lumos-helmet-padding-ultra-bike-helmet-accessories-21117144)
+12. [EPFL SPOT available 3D-printing materials](https://make.epfl.ch/wiki/public/spot_-_3d_printing/available_materials)
 
 ---
 
@@ -437,26 +469,28 @@ The highlighted map below was prepared by the project author and identifies the 
 - Magenta: FCz reference
 - Green: AFz BIAS 
 
-### Appendix B: Current CAD file
+### Appendix B: Current CAD files
 
 | File | Description | Format | Units | Status |
 |---|---|---|---|---|
 | [`frame design.step`](../headset/cad/frame%20design.step) | Current headset-frame prototype exported from Fusion 360 | STEP AP214 | mm | Work in progress |
 
-The complete assembly and the power-board and decoding-board casing models will be added when available.
+Additional STEP files will be added when they are provided and ready for repository review.
 
 ### Appendix C: Preliminary component list
 
 | Component | Source | Quantity | Status |
 |---|---|---:|---|
-| 3D-printed headset frame | Project CAD | 1 | PETG prototype in progress |
-| Transverse elastic bands | TBC | 4 | Not selected |
+| 3D-printed headset frame | Project CAD | 1 | PETG prototype; measured mass 73 g at 10% infill |
+| Transverse non-elastic bands |  | 4 | Product and dimensions not yet selected |
 | Electrode holders | Project design | 16 | In progress |
+| Rome Fastener No. 11 socket | Rome Fastener | 16 | Proposed; approval required |
 | Datwyler SoftPulse Brush Long electrodes | Datwyler | 16 | Selected / purchased |
-| Buffer PCBs | Project electronics | 16 | Purchased; integration in progress |
-| Rear adjustment dial | Selected Amazon listing | 1 | Purchased; awaiting measurement/integration |
-| Chin strap | ABUS Scator(-E) | 1 | Purchased; awaiting measurement/integration |
-| Removable padding | TBC | TBC | Not selected |
-| Power-board casing | Project CAD | 1 | In progress |
-| Decoding-board casing | Project CAD | 1 | In progress |
-| Battery armband | TBC | 1 | Not selected |
+| Buffer PCBs | Project electronics | 16 | Purchased; thickness and holder integration require confirmation |
+| Rear adjustment dial | Selected Amazon listing | 1 | Ordered; awaiting delivery and dimensional validation |
+| Chin strap | ABUS Scator(-E) | 1 | Ordered; awaiting delivery and dimensional validation |
+| Removable padding | Lumos Ultra candidate |  | Candidate under consideration |
+| Power-board enclosure and lid | Project CAD | 1 | First PETG prototype; measured mass 40.0 g; STEP files to be added later |
+| Decoding-board enclosure and lid | Project CAD | 1 | First PETG prototype; measured mass 40.5 g; STEP files to be added later |
+| Battery casing | Project CAD | 1 | Designed; ventilation and cable opening planned; STEP files to be added later |
+| Battery arm strap |  | 1 | Development planned for the week of 2026-10-26 |
