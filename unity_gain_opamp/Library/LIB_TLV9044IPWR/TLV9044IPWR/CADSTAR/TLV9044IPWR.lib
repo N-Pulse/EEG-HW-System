@@ -1,0 +1,16 @@
+.TLV9044IPWR :1 ;1.2-V ultra-low voltage, 350-kHz-power saving quad op amp for battery powered systems
+SOP65P640X120-14N
+*STM IC
+*NGS
+*PLB 1="OUT1" 2="IN1-" 3="IN1+" 4="V+" 5="IN2+" 6="IN2-" 7="OUT2" 8="OUT3" 9="IN3-" 10="IN3+" 11="V-" 12="IN4+" 13="IN4-" 14="OUT4"
+*MXP 14
+*DFN TLV9044IPWR
+~!Mouser Part Number (595-TLV9044IPWR)
+~!Link Mouser Price/Stock (https://www.mouser.co.uk/ProductDetail/Texas-Instruments/TLV9044IPWR?qs=eP2BKZSCXI4jXdLHrt%252BknA%3D%3D)
+~!Manufacturer_Name (Texas Instruments)
+~!Manufacturer_Part_Number (TLV9044IPWR)
+~!Link Datasheet (https://www.ti.com/lit/ds/symlink/tlv9044.pdf?ts=1630832764270&ref_url=https%253A%252F%252Fwww.ti.com%252Fproduct%252FTLV9044%253FkeyMatch%253DTLV9044IPWR%2526tisearch%253Dsearch-everything%2526usecase%253DOPN)
+~!Height (1.2mm)
+~!3D_Model (TLV9044IPWR)
+TLV9044IPWR
+1.1!U 2.1!U 3.1!U 4.1!U 5.1!U 6.1!U 7.1!U 14.1!U 13.1!U 12.1!U 11.1!U 10.1!U 9.1!U 8.1!U 
