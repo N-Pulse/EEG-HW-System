@@ -1,0 +1,28 @@
+(version 1)
+
+# Footprint-inherent fine-pitch land patterns (manufacturer footprints): pad-to-pad inside the part
+(rule "IC1 QFN48 pins to exposed pad"
+	(constraint clearance (min 0.17mm))
+	(condition "A.Type == 'Pad' && B.Type == 'Pad' && A.memberOfFootprint('IC1') && B.memberOfFootprint('IC1')"))
+
+(rule "D14 DQA 0.5 mm pitch"
+	(constraint clearance (min 0.15mm))
+	(condition "A.Type == 'Pad' && B.Type == 'Pad' && A.memberOfFootprint('D14') && B.memberOfFootprint('D14')"))
+
+(rule "IC2 MLPF CSP bumps"
+	(constraint clearance (min 0.175mm))
+	(condition "A.Type == 'Pad' && B.Type == 'Pad' && A.memberOfFootprint('IC2') && B.memberOfFootprint('IC2')"))
+
+# Board-edge connectors: shield / hold-down tabs sit at the edge by design
+(rule "Edge connector tabs"
+	(constraint edge_clearance (min 0.2mm))
+	(condition "A.memberOfFootprint('J6') || A.memberOfFootprint('J7') || A.memberOfFootprint('J9')"))
+
+# Fine routing (0.15 mm tracks, 0.45/0.2 mm vias) is only allowed on signals, never on power or RF
+(rule "No fine tracks on power"
+	(constraint track_width (min 0.2mm))
+	(condition "A.NetClass == 'Power' && A.Type == 'Track'"))
+
+(rule "RF lines keep their width"
+	(constraint track_width (min 0.1mm))
+	(condition "A.NetName == '/Architecture/STM32/RF_MCU' || A.NetName == '/Architecture/STM32/RF_ANT'"))

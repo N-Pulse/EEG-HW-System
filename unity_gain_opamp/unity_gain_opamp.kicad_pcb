@@ -143,7 +143,7 @@
 			(name "rectangular")
 		)
 	)
-	(footprint "N_pulse:CONN_5037630000-SD_02_MOL"
+	(footprint "NPulse Lib:CONN_5037630000-SD_02_MOL"
 		(layer "F.Cu")
 		(uuid "1320b59a-23b9-4703-a65c-57b019652759")
 		(at 91.45445 53.864601 -90)
@@ -743,7 +743,7 @@
 			)
 		)
 		(embedded_fonts no)
-		(model "${KIPRJMOD}/Library/5037630291/5037630291.stp"
+		(model "${KIPRJMOD}/../Footprint-Library/3dmodels/5037630291.stp"
 			(offset
 				(xyz -0.5 4.5 0)
 			)
@@ -755,7 +755,7 @@
 			)
 		)
 	)
-	(footprint "N_pulse:electrode"
+	(footprint "NPulse Lib:electrode"
 		(layer "F.Cu")
 		(uuid "14fa7fa6-f937-497e-9fac-6b97e51af7d1")
 		(at 81.2 53.9)
@@ -4631,7 +4631,7 @@
 			)
 		)
 	)
-	(footprint "N_pulse:CONN_5037630000-SD_02_MOL"
+	(footprint "NPulse Lib:CONN_5037630000-SD_02_MOL"
 		(layer "B.Cu")
 		(uuid "8de97158-6cc1-41dc-87cd-ed2f74a5a96c")
 		(at 91.544301 53.775001 90)
@@ -5250,7 +5250,7 @@
 			)
 		)
 		(embedded_fonts no)
-		(model "${KIPRJMOD}/Library/5037630291/5037630291.stp"
+		(model "${KIPRJMOD}/../Footprint-Library/3dmodels/5037630291.stp"
 			(offset
 				(xyz -0.5 4.5 0)
 			)
