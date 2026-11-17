@@ -447,7 +447,7 @@
 			)
 			(embedded_fonts no)
 		)
-		(symbol "N_pulse:2053380002"
+		(symbol "NPulse Lib:2053380002_shield"
 			(body_styles demorgan)
 			(pin_names
 				(offset 0.254)
@@ -544,7 +544,7 @@
 					)
 				)
 			)
-			(symbol "2053380002_1_1"
+			(symbol "2053380002_shield_1_1"
 				(rectangle
 					(start 5.08 2.54)
 					(end 13.97 -5.08)
@@ -702,7 +702,7 @@
 					)
 				)
 			)
-			(symbol "2053380002_1_2"
+			(symbol "2053380002_shield_1_2"
 				(polyline
 					(pts
 						(xy 5.08 2.54) (xy 5.08 -5.08)
@@ -862,7 +862,7 @@
 			)
 			(embedded_fonts no)
 		)
-		(symbol "N_pulse:TLV9041IDBVRG4"
+		(symbol "NPulse Lib:TLV9041IDBVRG4"
 			(exclude_from_sim no)
 			(in_bom yes)
 			(on_board yes)
@@ -2580,7 +2580,7 @@
 				)
 			)
 		)
-		(property "Footprint" "N_pulse:electrode"
+		(property "Footprint" "NPulse Lib:electrode"
 			(at 34.29 78.74 0)
 			(hide yes)
 			(show_name no)
@@ -2626,7 +2626,7 @@
 		)
 	)
 	(symbol
-		(lib_id "N_pulse:TLV9041IDBVRG4")
+		(lib_id "NPulse Lib:TLV9041IDBVRG4")
 		(at 67.31 73.66 0)
 		(unit 1)
 		(body_style 1)
@@ -2934,7 +2934,7 @@
 		)
 	)
 	(symbol
-		(lib_id "N_pulse:2053380002")
+		(lib_id "NPulse Lib:2053380002_shield")
 		(at 73.66 49.53 0)
 		(mirror y)
 		(unit 1)
@@ -2967,7 +2967,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "N_pulse:CONN_5037630000-SD_02_MOL"
+		(property "Footprint" "NPulse Lib:CONN_5037630000-SD_02_MOL"
 			(at 73.66 49.53 0)
 			(hide yes)
 			(show_name no)
@@ -3106,7 +3106,7 @@
 		)
 	)
 	(symbol
-		(lib_id "N_pulse:2053380002")
+		(lib_id "NPulse Lib:2053380002_shield")
 		(at 83.82 49.53 0)
 		(unit 1)
 		(body_style 1)
@@ -3139,7 +3139,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "N_pulse:CONN_5037630000-SD_02_MOL"
+		(property "Footprint" "NPulse Lib:CONN_5037630000-SD_02_MOL"
 			(at 83.82 49.53 0)
 			(hide yes)
 			(show_name no)

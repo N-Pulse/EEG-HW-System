@@ -1,0 +1,4 @@
+(sym_lib_table
+	(version 7)
+	(lib (name "NPulse Lib") (type "KiCad") (uri "${KIPRJMOD}/../Footprint-Library/Symbols.kicad_symdir") (options "") (descr "N-Pulse shared symbol library (submodule)"))
+)

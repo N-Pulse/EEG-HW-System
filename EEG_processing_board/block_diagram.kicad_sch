@@ -1,0 +1,15 @@
+(kicad_sch
+	(version 20260306)
+	(generator "eeschema")
+	(generator_version "10.0")
+	(uuid "609dc19e-da09-483b-9b66-401658617a5e")
+	(paper "A4")
+	(title_block
+		(date "2026-10-02")
+		(rev "V?.0")
+		(company "EEG Team")
+		(comment 1 "Julian RR.")
+		(comment 4 "EEG Processing Board")
+	)
+	(lib_symbols)
+)
